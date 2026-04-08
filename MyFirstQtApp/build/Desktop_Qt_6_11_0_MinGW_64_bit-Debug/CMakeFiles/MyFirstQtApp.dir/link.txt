@@ -1,0 +1,3 @@
+C:\ProgramBank\Tools\CMake_64\bin\cmake.exe -E rm -f CMakeFiles\MyFirstQtApp.dir/objects.a
+C:\ProgramBank\Tools\mingw1310_64\bin\ar.exe qc CMakeFiles\MyFirstQtApp.dir/objects.a @CMakeFiles\MyFirstQtApp.dir\objects1.rsp
+C:\ProgramBank\Tools\mingw1310_64\bin\g++.exe -g -mwindows -Wl,--whole-archive CMakeFiles\MyFirstQtApp.dir/objects.a -Wl,--no-whole-archive -o MyFirstQtApp.exe -Wl,--out-implib,libMyFirstQtApp.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\MyFirstQtApp.dir\linkLibs.rsp
