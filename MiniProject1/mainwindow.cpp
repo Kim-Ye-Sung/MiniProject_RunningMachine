@@ -8,6 +8,11 @@
 #include <iomanip>
 #include <memory>
 
+#include <QDir>
+#include <QFileInfo>
+#include <QDebug>
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -52,6 +57,10 @@ MainWindow::MainWindow(QWidget *parent)
             });
 
     connect(SpeedDownButtonTimer.get(), &QTimer::timeout, this, &MainWindow::SpeedDownButton_Push);
+
+
+    SpeedCal_Obj->SetSpeed(4.0); // 여기 변경
+    SetupRunAnimation();        // 여기 변경
 }
 
 MainWindow::~MainWindow()
@@ -74,7 +83,7 @@ void MainWindow::on_StartButton_clicked()
 
     Timer->start(UpdateCycle);
 
-    SetSpeedText(SpeedCal_Obj->GetSpeed());
+    ui->SpeedText->setText((ChangeSpeedText(SpeedCal_Obj->GetSpeed())));
 
     ui->stackedWidget->setCurrentWidget(ui->Running_UI);
 }
@@ -86,12 +95,12 @@ void MainWindow::UpdateScreen()
         Cal->Calculate(UpdateCycle);
     }
 
-    SetTimeText(TimeCal_Obj->GetRunTime());
-    SetDistanceText(DistanceCal_Obj->GetDistance());
-    SetCalorieText(CalorieCal_Obj->GetCalorie());
+    ui->TimeText->setText(ChangeTimeText(TimeCal_Obj->GetRunTime()));
+    ui->DistanceText->setText(ChangeDistanceText(DistanceCal_Obj->GetDistance()));
+    ui->CalorieText->setText(ChangeCalorieText(CalorieCal_Obj->GetCalorie()));
 }
 
-void MainWindow::SetTimeText(double TimeValue)
+QString MainWindow::ChangeTimeText(double TimeValue)
 {
     int hour = (int)TimeValue / 3600;          // 시간
     int min = ((int)TimeValue % 3600) / 60;    // 분
@@ -102,10 +111,10 @@ void MainWindow::SetTimeText(double TimeValue)
              << std::setw(2) << std::setfill('0') << min << ":"
              << std::setw(2) << std::setfill('0') << sec;
 
-    ui->TimeText->setText(QString::fromStdString(TimeText.str()));
+    return QString::fromStdString(TimeText.str());
 }
 
-void MainWindow::SetSpeedText(double SpeedValue)
+QString MainWindow::ChangeSpeedText(double SpeedValue)
 {
     std::stringstream SpeedText;
     SpeedText << std::fixed		// 고정 소수점
@@ -114,10 +123,10 @@ void MainWindow::SetSpeedText(double SpeedValue)
               << std::setfill(' ')  // 비어있는 곳은 0으로 표기
               << SpeedValue << " km/h";
 
-    ui->SpeedText->setText(QString::fromStdString(SpeedText.str()));
+    return QString::fromStdString(SpeedText.str());
 }
 
-void MainWindow::SetDistanceText(double DistanceValue)
+QString MainWindow::ChangeDistanceText(double DistanceValue)
 {
     std::stringstream DistanceText;
 
@@ -127,10 +136,10 @@ void MainWindow::SetDistanceText(double DistanceValue)
                  << std::setfill(' ')    // 빈 자리 0으로 채움
                  << DistanceValue << " km";
 
-    ui->DistanceText->setText(QString::fromStdString(DistanceText.str()));
+    return QString::fromStdString(DistanceText.str());
 }
 
-void MainWindow::SetCalorieText(double CalorieValue)
+QString MainWindow::ChangeCalorieText(double CalorieValue)
 {
     std::stringstream CalorieText;
     CalorieText << std::fixed
@@ -139,7 +148,7 @@ void MainWindow::SetCalorieText(double CalorieValue)
                 << std::setfill(' ')
                 << CalorieValue << " kcal";
 
-    ui->CalorieText->setText(QString::fromStdString(CalorieText.str()));
+    return QString::fromStdString(CalorieText.str());
 }
 void MainWindow::on_Speed4Button_clicked()
 {
@@ -148,7 +157,9 @@ void MainWindow::on_Speed4Button_clicked()
     DistanceCal_Obj->SetCurrentSpeed(SpeedValue);
     CalorieCal_Obj->SetCurrentSpeed(SpeedValue);
 
-    SetSpeedText(SpeedCal_Obj->GetSpeed());
+    ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
+
+    UpdateRunAnimationSpeed();  // 여기 변경
 }
 
 
@@ -159,7 +170,9 @@ void MainWindow::on_Speed8Button_clicked()
     DistanceCal_Obj->SetCurrentSpeed(SpeedValue);
     CalorieCal_Obj->SetCurrentSpeed(SpeedValue);
 
-    SetSpeedText(SpeedCal_Obj->GetSpeed());
+    ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
+
+    UpdateRunAnimationSpeed();  // 여기 변경
 }
 
 
@@ -170,7 +183,9 @@ void MainWindow::on_Speed12Button_clicked()
     DistanceCal_Obj->SetCurrentSpeed(SpeedValue);
     CalorieCal_Obj->SetCurrentSpeed(SpeedValue);
 
-    SetSpeedText(SpeedCal_Obj->GetSpeed());
+    ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
+
+    UpdateRunAnimationSpeed();  // 여기 변경
 }
 
 
@@ -180,7 +195,9 @@ void MainWindow::SpeedDownButton_Push()
     DistanceCal_Obj->SetCurrentSpeed(SpeedCal_Obj->GetSpeed());
     CalorieCal_Obj->SetCurrentSpeed(SpeedCal_Obj->GetSpeed());
 
-    SetSpeedText(SpeedCal_Obj->GetSpeed());
+    ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
+
+    UpdateRunAnimationSpeed();  // 여기 변경
 }
 
 
@@ -190,12 +207,103 @@ void MainWindow::SpeedUpButton_Push()
     DistanceCal_Obj->SetCurrentSpeed(SpeedCal_Obj->GetSpeed());
     CalorieCal_Obj->SetCurrentSpeed(SpeedCal_Obj->GetSpeed());
 
-    SetSpeedText(SpeedCal_Obj->GetSpeed());
+    ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
+
+    UpdateRunAnimationSpeed();  // 여기 변경
 }
 
 
 void MainWindow::on_EndButton_clicked()
 {
+    ui->ResultTimeText->setText(ChangeTimeText(TimeCal_Obj->GetRunTime()));
+    ui->ResultSpeedText->setText(ChangeSpeedText(SpeedCal_Obj->AvrSpeedCalulate(DistanceCal_Obj->GetDistance(), TimeCal_Obj->GetRunTime())));
+    ui->ResultDistanceText->setText(ChangeDistanceText(DistanceCal_Obj->GetDistance()));
+    ui->ResultCalorieText->setText(ChangeCalorieText(CalorieCal_Obj->GetCalorie()));
+
     ui->stackedWidget->setCurrentWidget(ui->Result_UI);
 }
 
+
+void MainWindow::on_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->MainMenu_UI);
+}
+
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->MainMenu_UI);
+}
+
+void MainWindow::SetupRunAnimation()
+{
+    qDebug() << "현재 작업 폴더:" << QDir::currentPath();
+
+    QString path = "../../images/WomanRun.png";
+    qDebug() << "확인할 이미지 경로:" << QFileInfo(path).absoluteFilePath();
+    qDebug() << "파일 존재 여부:" << QFileInfo::exists(path);
+
+    RunSpriteSheet.load(path);
+
+    if (RunSpriteSheet.isNull())
+    {
+        qDebug() << "이미지 로드 실패!";
+        return;
+    }
+    else
+    {
+        qDebug() << "이미지 로드 성공!";
+    }
+
+    FrameWidth = RunSpriteSheet.width() / Columns;
+    FrameHeight = RunSpriteSheet.height() / Rows;
+
+    RunAnimTimer = new QTimer(this);
+    connect(RunAnimTimer, &QTimer::timeout, this, &MainWindow::UpdateRunAnimation);
+
+    UpdateRunAnimation();
+    UpdateRunAnimationSpeed();
+}
+
+void MainWindow::UpdateRunAnimation()
+{
+    if (RunSpriteSheet.isNull())
+        return;
+
+    int row = CurrentRunFrame / Columns;
+    int col = CurrentRunFrame % Columns;
+
+    QPixmap frame = RunSpriteSheet.copy(col * FrameWidth,
+                                        row * FrameHeight,
+                                        FrameWidth,
+                                        FrameHeight);
+
+    ui->RunnerLabel->setPixmap(frame);
+    ui->RunnerLabel->setScaledContents(true);
+
+    CurrentRunFrame++;
+    if (CurrentRunFrame >= TotalFrames)
+        CurrentRunFrame = 0;
+}
+
+void MainWindow::UpdateRunAnimationSpeed()
+{
+    double speed = SpeedCal_Obj->GetSpeed();
+
+    // 0이면 멈춤
+    if (speed <= 0.0)
+    {
+        RunAnimTimer->stop();
+        return;
+    }
+
+    // 속도를 타이머 간격으로 변환
+    int interval = 150 - (speed * 7);
+    // speed=0 → 150ms (느림)
+    // speed=15 → 45ms (빠름)
+
+    if (interval < 30)
+        interval = 30;  // 최소 제한
+
+    RunAnimTimer->start(interval);  // interval의 숫자가 낮을수록 빠르게 재생됨
+}

@@ -42,3 +42,15 @@ void speedCalculator::Calculate(int Value)
 {
 
 }
+
+double speedCalculator::AvrSpeedCalulate(double Distance, double RunTime)
+{
+    AverageSpeed = 0.0f;
+
+    if (RunTime > 0.0f)
+    {
+        AverageSpeed = Distance / (RunTime / 3600.0f);
+    }
+
+    return AverageSpeed;
+}

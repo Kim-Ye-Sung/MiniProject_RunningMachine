@@ -5,6 +5,8 @@
 #include <QTimer>
 #include <vector>
 
+#include <QPixmap>
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -39,6 +41,10 @@ private slots:
 
     void on_EndButton_clicked();
 
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
 private :
     std::unique_ptr<QTimer> Timer;  // 시간, 거리, 칼로리등을 계산할때 사용하는 타이머
 
@@ -59,9 +65,24 @@ private:
 
     void UpdateScreen();
 
-    void SetTimeText(double TimeValue);
-    void SetSpeedText(double SpeedValue);
-    void SetDistanceText(double DistanceValue);
-    void SetCalorieText(double CalorieValue);
+    QString ChangeTimeText(double TimeValue);
+    QString ChangeSpeedText(double SpeedValue);
+    QString ChangeDistanceText(double DistanceValue);
+    QString ChangeCalorieText(double CalorieValue);
+
+private:        // 이미지 스프라이트를 위한 변수와 함수 모음
+    QTimer* RunAnimTimer = nullptr;
+    QPixmap RunSpriteSheet;
+
+    int CurrentRunFrame = 0;
+    int FrameWidth = 0;
+    int FrameHeight = 0;
+    int TotalFrames = 18;
+    int Columns = 9;
+    int Rows = 2;
+
+    void SetupRunAnimation();
+    void UpdateRunAnimation();
+    void UpdateRunAnimationSpeed();
 };
 #endif // MAINWINDOW_H
