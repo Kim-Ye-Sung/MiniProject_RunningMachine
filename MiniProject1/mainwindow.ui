@@ -27,7 +27,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="Login_UI">
      <widget class="QPushButton" name="ExitButton_LoginUI">
@@ -654,19 +654,6 @@
         <string>End</string>
        </property>
       </widget>
-      <widget class="QLabel" name="RunnerLabel">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>230</y>
-         <width>151</width>
-         <height>191</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="Result_UI">
@@ -995,7 +982,7 @@
         <set>Qt::AlignmentFlag::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="SaveButton">
        <property name="geometry">
         <rect>
          <x>280</x>
@@ -1013,7 +1000,7 @@
         <string>Yes</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="RefuseButton">
        <property name="geometry">
         <rect>
          <x>410</x>

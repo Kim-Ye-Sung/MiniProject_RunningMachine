@@ -56,3 +56,123 @@
     - 기본적으로 버튼등은 사각형 모양으로 시작한다. 그것을 완전 원형으로 변경하려면 다음의 예제처럼 하면 된다.
         - ex_1  width: 50px; height: 50px; border-radius: 25px;   /* 크기의 절반 */ 
         - 이처럼 가로, 세로의 길이를 동일하게하고 모서리부분을 그것의 절반으로 설정하면 완전한 타원형이 된다.
+
+
+
+
+
+
+# 데이터베이스 연동하는 방법
+1. 시작 메뉴에서 QT라고 입력하면 Qt전용 콘솔앱이 나온다. 그것을 실행한다.
+
+2. 콘솔 입력
+    - cd /d 
+    - C:\SourceBank\MiniProject_RunningMachine\MiniProject1\build\Desktop_Qt_6_11_0_MinGW_64_bit-Debug
+    - 이렇게 실행을 하면 Qt 관련 라이브러리와 플러그인을 실행 폴더로 복사해 준다.
+
+3. 확인용 코드로 확인
+    ```cpp
+    #include "db_connector.h"
+
+    #include <QSqlDatabase>
+    #include <QSqlQuery>
+    #include <QSqlError>
+    #include <QSqlDriver>
+    #include <QVariant>
+    #include <QDebug>
+    #include <QCoreApplication>
+
+    db_Connector::db_Connector()
+    {
+        qDebug() << "실행 폴더:" << QCoreApplication::applicationDirPath();
+        qDebug() << "라이브러리 경로들:" << QCoreApplication::libraryPaths();
+        qDebug() << "사용 가능한 드라이버 목록:" << QSqlDatabase::drivers();
+    }
+    ```
+    위와같은 방식으로 확인했을때, 사용 가능한 드라이버 목록에 "QODBC"가 나온다면 사용 가능한 상태이다.
+
+4. ODBC를 사용해서 MySql에 사용하기 위해 MySQL 사이트에서 설치 파일 다운로드하고 설치
+    - 주소 : https://dev.mysql.com/downloads/connector/odbc/?utm_source=chatgpt.com 에서 Windows (x86, 64-bit), MSI Installer 다운로드 후 설치한다.
+
+5. ODBC 설치확인
+    - 시작메뉴에서 `ODBC 데이터 원본` 이라고 검색한다. 
+        - `ODBC 데이터 원본(64비트)`라는게 보인다면 실행한다.
+        - `드라이버`탭에 들어간다.
+        - `MySQL ODBC 9.6 Unicode Driver`가 있다면 설치확인 완료이다.
+
+6. db와 연결
+```cpp
+bool db_Connector::Connect()
+    {
+        QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
+
+        db.setDatabaseName(
+            "DRIVER={MySQL ODBC 9.6 Unicode Driver};"
+            "SERVER=127.0.0.1;"
+            "DATABASE=RunRecordDB;"
+            "USER=KYS;"
+            "PASSWORD=KYS123456;"
+            "PORT=3306;"
+            "OPTION=3;"
+        );
+
+        if (!db.open())
+        {
+            qDebug() << "DB 연결 실패:" << db.lastError().text();
+            return false;
+        }
+
+        qDebug() << "DB 연결 성공";
+        return true;
+    }
+```
+
+7. db에 저장
+```cpp
+    // 저장할때 입력한 멤버ID가 DB에 없으면 멤버 ID를 생성하여 저장
+    bool db_Connector::EnsureMemberExists(int memberId) 
+    {
+        QSqlQuery query;
+        query.prepare("INSERT IGNORE INTO Member (member_id) VALUES (:member_id)");
+        query.bindValue(":member_id", memberId);
+
+        if (!query.exec())
+        {
+            qDebug() << "Member 등록 실패:" << query.lastError().text();
+            return false;
+        }
+
+        return true;
+    }
+
+    // DB에 저장
+    bool db_Connector::SaveRecord(int memberId, double runTime, double avgSpeed, double distance, double calorie)
+    {
+        if (!EnsureMemberExists(memberId))  
+        {
+            return false;
+        }
+
+        QSqlQuery query;
+        query.prepare(
+            "INSERT INTO RunningRecord "
+            "(member_id, run_time, avg_speed, distance, calorie) "
+            "VALUES (:member_id, :run_time, :avg_speed, :distance, :calorie)"
+            );
+
+        query.bindValue(":member_id", memberId);
+        query.bindValue(":run_time", runTime);
+        query.bindValue(":avg_speed", avgSpeed);
+        query.bindValue(":distance", distance);
+        query.bindValue(":calorie", calorie);
+
+        if (!query.exec())
+        {
+            qDebug() << "기록 저장 실패:" << query.lastError().text();
+            return false;
+        }
+
+        qDebug() << "기록 저장 성공";
+        return true;
+    }
+```

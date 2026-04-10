@@ -41,9 +41,15 @@ private slots:
 
     void on_EndButton_clicked();
 
-    void on_pushButton_clicked();
+    void on_SaveButton_clicked();
 
-    void on_pushButton_2_clicked();
+    void on_RefuseButton_clicked();
+
+    void on_ExitButton_MainMenuUI_clicked();
+
+    void on_ExitButton_LoginUI_clicked();
+
+    void on_LogoutButton_clicked();
 
 private :
     std::unique_ptr<QTimer> Timer;  // 시간, 거리, 칼로리등을 계산할때 사용하는 타이머
@@ -52,6 +58,8 @@ private :
     std::unique_ptr<class speedCalculator> SpeedCal_Obj;
     std::unique_ptr<class distanceCalculator> DistanceCal_Obj;
     std::unique_ptr<class calorieCalculator> CalorieCal_Obj;
+
+    std::unique_ptr<class db_Connector> DBC_Obj;
 
     std::vector<class Calculator*> Calculators;
 
@@ -70,19 +78,19 @@ private:
     QString ChangeDistanceText(double DistanceValue);
     QString ChangeCalorieText(double CalorieValue);
 
-private:        // 이미지 스프라이트를 위한 변수와 함수 모음
-    QTimer* RunAnimTimer = nullptr;
-    QPixmap RunSpriteSheet;
+// private:        // 이미지 스프라이트를 위한 변수와 함수 모음
+//     QTimer* RunAnimTimer = nullptr;
+//     QPixmap RunSpriteSheet;
 
-    int CurrentRunFrame = 0;
-    int FrameWidth = 0;
-    int FrameHeight = 0;
-    int TotalFrames = 18;
-    int Columns = 9;
-    int Rows = 2;
+//     int CurrentRunFrame = 0;
+//     int FrameWidth = 0;
+//     int FrameHeight = 0;
+//     int TotalFrames = 18;
+//     int Columns = 9;
+//     int Rows = 2;
 
-    void SetupRunAnimation();
-    void UpdateRunAnimation();
-    void UpdateRunAnimationSpeed();
+//     void SetupRunAnimation();
+//     void UpdateRunAnimation();
+//     void UpdateRunAnimationSpeed();
 };
 #endif // MAINWINDOW_H

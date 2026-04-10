@@ -19,5 +19,7 @@ public:
 
     inline double GetSpeed() const {return Speed;}
 
+    inline double GetAvrSpeed() const {return AverageSpeed;}
+
     double AvrSpeedCalulate(double Distance, double RunTime);
 };
