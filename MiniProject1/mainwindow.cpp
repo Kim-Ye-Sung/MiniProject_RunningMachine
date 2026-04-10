@@ -9,6 +9,7 @@
 #include <iomanip>
 #include <memory>
 #include <QApplication> // 프로그램 종료 함수를 사용하기 위한 라이브러리 추가
+#include <QRegularExpression> // 로그인할때 로그인 아이디의 조건을 확인하기 위한 라이브러리 추가
 
 
 // #include <QDir>
@@ -22,6 +23,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    ui->LoginYesButton->hide();
+    ui->LoginNoButton->hide();
+
     ui->stackedWidget->setCurrentWidget(ui->Login_UI);
 
     SpeedCal_Obj = std::make_unique<speedCalculator>();
@@ -34,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
     Calculators.push_back(CalorieCal_Obj.get());
 
     DBC_Obj = std::make_unique<db_Connector>();
-    qDebug() << "연결 결과 : " << DBC_Obj->Connect();
+    /*qDebug() << "연결 결과 : " <<*/ DBC_Obj->Connect();
 
     Timer = std::make_unique<QTimer>();
     connect(Timer.get(), &QTimer::timeout, this, &MainWindow::UpdateScreen);
@@ -64,6 +68,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(SpeedDownButtonTimer.get(), &QTimer::timeout, this, &MainWindow::SpeedDownButton_Push);
 
+    SettingRecordTable();
+
+    DefaultDate = ui->StartDateEdit->date();
+
 
     // SpeedCal_Obj->SetSpeed(4.0); // 여기 변경
     // SetupRunAnimation();        // 여기 변경
@@ -74,13 +82,54 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_LoginButton_clicked()
+bool MainWindow::ID_ConditionCheck(QString ID)      // 로그인 ID 조건을 만족하는지 확인하는 함수
 {
-    DBC_Obj->SetMemberID(ui->LoginLineEditor->text().toInt());
+    QRegularExpression regex("^[A-Za-z0-9]{1,10}$");    // 영어와 숫자로만 이루어진 최대 10자리의 조건
 
-    ui->LoginLineEditor->clear();
+    if (!regex.match(ID).hasMatch())
+    {
+        return false;  // 조건에 맞지 않으면 false를 반환
+    }
+
+    return true;
+}
+
+void MainWindow::LoginSuccess()
+{
+    ClearLoginScreen();
 
     ui->stackedWidget->setCurrentWidget(ui->MainMenu_UI);
+}
+
+void MainWindow::LoginRecheck() // 정말 아이디가 맞는지 재확인하는 함수
+{
+    DBC_Obj->SetMemberID(ui->LoginLineEditor->text());
+
+    if(DBC_Obj->MemberExists())  // ID가 DB에 존재한다면
+    {
+        ui->LoginCheckLabel->setText("ID : ""<span style='color:red;'>" + DBC_Obj->GetMemberId()+"</span>""가 존재합니다. <br>로그인 하시겠습니까?");
+    }
+    else
+    {
+        ui->LoginCheckLabel->setText("ID : ""<span style='color:red;'>" + DBC_Obj->GetMemberId()+"</span>""가 존재하지 않습니다. <br>새롭게 ID를 만드시겠습니까?");
+    }
+
+    ui->LoginYesButton->show();
+    ui->LoginNoButton->show();
+}
+
+void MainWindow::on_LoginButton_clicked()
+{
+    if(!ID_ConditionCheck(ui->LoginLineEditor->text())) // 로그인 ID 조건을 만족하지 않으면
+    {
+        ui->WarningLabel->setText("! 최대 10자리까지 ! <br>! 영어와 숫자로만 !");   // 주의 문구 나타내기
+
+        return;
+    }
+
+    ui->WarningLabel->clear();
+
+    LoginRecheck(); // 조건을 만족한다면 다시 묻는 함수 실행
 }
 
 
@@ -269,6 +318,90 @@ void MainWindow::on_LogoutButton_clicked()
     ui->stackedWidget->setCurrentWidget(ui->Login_UI);
 }
 
+void MainWindow::on_LoginYesButton_clicked()
+{
+    if(DBC_Obj->MemberExists())
+    {
+        LoginSuccess();
+    }
+    else
+    {
+        DBC_Obj->InsertMemberID();
+        LoginSuccess();
+    }
+}
+
+void MainWindow::on_LoginNoButton_clicked()
+{
+    ClearLoginScreen();
+}
+
+void MainWindow::ClearLoginScreen()
+{
+    ui->WarningLabel->clear();
+    ui->LoginLineEditor->clear();
+    ui->LoginCheckLabel->clear();
+
+    ui->LoginYesButton->hide();
+    ui->LoginNoButton->hide();
+}
+
+
+void MainWindow::on_RecordButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->Record_UI);
+}
+
+void MainWindow::on_InquiryButton_clicked()
+{
+    QDate StartDate = ui->StartDateEdit->date();
+    QDate EndDate = ui->EndDateEdit->date();
+
+    if(StartDate > EndDate)
+    {
+        ui->DateWarningLabel->setText("! 시작 날짜가 종료 날짜보다 늦을 수 없습니다 !");
+        return;
+    }
+
+    ui->DateWarningLabel->clear();
+
+    DBC_Obj->InquiryRecord(*(ui->RecordTable), StartDate.toString("yyyy-MM-dd"), EndDate.toString("yyyy-MM-dd"));
+
+    if(ui->RecordTable->rowCount() == 0)
+    {
+        qDebug() << "조건 없다고?";
+        ui->DateWarningLabel->setText("! 조건에 맞는 데이터가 하나도 없습니다 !");
+        return;
+    }
+}
+
+void MainWindow::SettingRecordTable()
+{
+    ui->RecordTable->setColumnCount(5);
+    ui->RecordTable->setHorizontalHeaderLabels(
+        {"날짜", "운동 시간", "평균 속도 (km/h)", "거리 (km)", "칼로리(kcal)"}
+        );
+
+    ui->RecordTable->setEditTriggers(QAbstractItemView::NoEditTriggers); // 수정 불가
+    ui->RecordTable->setSelectionBehavior(QAbstractItemView::SelectRows); // 행 단위 선택
+    ui->RecordTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->RecordTable->horizontalHeader()->setStretchLastSection(true);
+    ui->RecordTable->verticalHeader()->setVisible(false);
+
+    ui->RecordTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+}
+
+void MainWindow::on_BackButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->MainMenu_UI);
+
+    ui->RecordTable->setRowCount(0);
+
+    ui->DateWarningLabel->clear();
+
+    ui->StartDateEdit->setDate(DefaultDate);
+    ui->EndDateEdit->setDate(DefaultDate);
+}
 
 // void MainWindow::SetupRunAnimation()
 // {
@@ -342,5 +475,3 @@ void MainWindow::on_LogoutButton_clicked()
 
 //     RunAnimTimer->start(interval);  // interval의 숫자가 낮을수록 빠르게 재생됨
 // }
-
-

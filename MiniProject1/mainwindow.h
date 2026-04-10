@@ -6,6 +6,7 @@
 #include <vector>
 
 #include <QPixmap>
+#include <QDate>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -51,6 +52,16 @@ private slots:
 
     void on_LogoutButton_clicked();
 
+    void on_LoginYesButton_clicked();
+
+    void on_LoginNoButton_clicked();
+
+    void on_RecordButton_clicked();
+
+    void on_InquiryButton_clicked();
+
+    void on_BackButton_clicked();
+
 private :
     std::unique_ptr<QTimer> Timer;  // 시간, 거리, 칼로리등을 계산할때 사용하는 타이머
 
@@ -77,6 +88,17 @@ private:
     QString ChangeSpeedText(double SpeedValue);
     QString ChangeDistanceText(double DistanceValue);
     QString ChangeCalorieText(double CalorieValue);
+
+    bool ID_ConditionCheck(QString ID);
+    void LoginRecheck();
+    void LoginSuccess();
+
+    void ClearLoginScreen();
+
+    void SettingRecordTable();
+
+    QDate DefaultDate;
+
 
 // private:        // 이미지 스프라이트를 위한 변수와 함수 모음
 //     QTimer* RunAnimTimer = nullptr;
