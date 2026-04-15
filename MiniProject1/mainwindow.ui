@@ -306,6 +306,29 @@
         <string>Login</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="ShowPWButton">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>250</y>
+         <width>91</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>휴먼아미체</family>
+         <pointsize>15</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">// #ShowPWButton{  border: 2px solid black;
+ }</string>
+       </property>
+       <property name="text">
+        <string>Show PW</string>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="Record_UI">

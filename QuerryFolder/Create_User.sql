@@ -7,3 +7,4 @@ GRANT ALL PRIVILEGES ON RunRecordDB.* TO 'KYS'@'%';	# 유저가 DB에 접속할�
 FLUSH PRIVILEGES;
 
 DROP USER IF EXISTS 'KYS'@'%';
+

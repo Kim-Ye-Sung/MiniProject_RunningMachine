@@ -72,6 +72,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     DefaultDate = ui->StartDateEdit->date();
 
+    ui->PWLineEditor->setEchoMode(QLineEdit::Password); // 비밀번호 입력란의 입력을 안보이게 하기.
+
 
     // SpeedCal_Obj->SetSpeed(4.0); // 여기 변경
     // SetupRunAnimation();        // 여기 변경
@@ -109,14 +111,27 @@ void MainWindow::LoginSuccess()
 void MainWindow::LoginRecheck() // 정말 아이디가 맞는지 재확인하는 함수
 {
     DBC_Obj->SetMemberID(ui->LoginLineEditor->text());
+    DBC_Obj->SetPassword(ui->PWLineEditor->text());
 
-    if(DBC_Obj->MemberExists())  // ID가 DB에 존재한다면
+    if(DBC_Obj->MemberExists() && DBC_Obj->IsPasswordRight())  // ID가 DB에 존재하고 비밀번호도 일치한다면
     {
         ui->LoginCheckLabel->setText("ID : ""<span style='color:red;'>" + DBC_Obj->GetMemberId()+"</span>""가 존재합니다. <br>로그인 하시겠습니까?");
+
+        ui->LoginButton->setEnabled(true);
+    }
+    else if(DBC_Obj->MemberExists() && !DBC_Obj->IsPasswordRight())  // ID는 존재하지만 비밀번호가 일치하지 않는다면
+    {
+        ui->LoginCheckLabel->setText("<span style='color:red;'>""비밀번호가 일치하지 않습니다!""</span>");
+
+        ui->LoginButton->setEnabled(true);
+
+        return;
     }
     else
     {
         ui->LoginCheckLabel->setText("ID : ""<span style='color:red;'>" + DBC_Obj->GetMemberId()+"</span>""가 존재하지 않습니다. <br>새롭게 ID를 만드시겠습니까?");
+
+        ui->LoginButton->setEnabled(true);
     }
 
     ui->LoginYesButton->show();
@@ -125,10 +140,13 @@ void MainWindow::LoginRecheck() // 정말 아이디가 맞는지 재확인하는
 
 void MainWindow::on_LoginButton_clicked()
 {
+    ui->LoginButton->setEnabled(false);
+
     if(!ID_ConditionCheck(ui->LoginLineEditor->text(), ui->PWLineEditor->text())) // 로그인 ID 조건을 만족하지 않으면
     {
         ui->WarningLabel->setText("! ID와 PW 모두 최소 1자리에서 최대 10자리까지 ! <br> !&nbsp;영어와 숫자로만&nbsp;!");   // 주의 문구 나타내기
 
+        ui->LoginButton->setEnabled(true);
         return;
     }
 
@@ -293,18 +311,26 @@ void MainWindow::on_EndButton_clicked()
 
 void MainWindow::on_SaveButton_clicked()
 {
+    ui->SaveButton->setEnabled(false);
+
     qDebug() << "저장 결과 : " <<   DBC_Obj->SaveRecord(TimeCal_Obj->GetRunTime(),
                                                        SpeedCal_Obj->GetAvrSpeed(),
                                                        DistanceCal_Obj->GetDistance(),
                                                        CalorieCal_Obj->GetCalorie());
 
     ui->stackedWidget->setCurrentWidget(ui->MainMenu_UI);
+
+    ui->SaveButton->setEnabled(true);
 }
 
 
 void MainWindow::on_RefuseButton_clicked()
 {
+    ui->RefuseButton->setEnabled(false);
+
     ui->stackedWidget->setCurrentWidget(ui->MainMenu_UI);
+
+    ui->RefuseButton->setEnabled(true);
 }
 
 void MainWindow::on_ExitButton_MainMenuUI_clicked()
@@ -331,7 +357,7 @@ void MainWindow::on_LoginYesButton_clicked()
     }
     else
     {
-        DBC_Obj->InsertMemberID();
+        DBC_Obj->InsertMember();
         LoginSuccess();
     }
 }
@@ -345,10 +371,16 @@ void MainWindow::ClearLoginScreen()
 {
     ui->WarningLabel->clear();
     ui->LoginLineEditor->clear();
+    ui->PWLineEditor->clear();
     ui->LoginCheckLabel->clear();
 
     ui->LoginYesButton->hide();
     ui->LoginNoButton->hide();
+
+    if(ShowPw)
+    {
+        on_ShowPWButton_clicked();
+    }
 }
 
 
@@ -359,12 +391,16 @@ void MainWindow::on_RecordButton_clicked()
 
 void MainWindow::on_InquiryButton_clicked()
 {
+    ui->InquiryButton->setEnabled(false);
+
     QDate StartDate = ui->StartDateEdit->date();
     QDate EndDate = ui->EndDateEdit->date();
 
     if(StartDate > EndDate)
     {
         ui->DateWarningLabel->setText("! 시작 날짜가 종료 날짜보다 늦을 수 없습니다 !");
+
+        ui->InquiryButton->setEnabled(true);
         return;
     }
 
@@ -374,10 +410,10 @@ void MainWindow::on_InquiryButton_clicked()
 
     if(ui->RecordTable->rowCount() == 0)
     {
-        qDebug() << "조건 없다고?";
         ui->DateWarningLabel->setText("! 조건에 맞는 데이터가 하나도 없습니다 !");
-        return;
     }
+
+    ui->InquiryButton->setEnabled(true);
 }
 
 void MainWindow::SettingRecordTable()
@@ -406,6 +442,22 @@ void MainWindow::on_BackButton_clicked()
 
     ui->StartDateEdit->setDate(DefaultDate);
     ui->EndDateEdit->setDate(DefaultDate);
+}
+
+void MainWindow::on_ShowPWButton_clicked()
+{
+    if(!ShowPw)
+    {
+        ui->PWLineEditor->setEchoMode(QLineEdit::Normal);
+        ShowPw = true;
+        ui->ShowPWButton->setText("Hide PW");
+    }
+    else
+    {
+        ui->PWLineEditor->setEchoMode(QLineEdit::Password);
+        ShowPw = false;
+        ui->ShowPWButton->setText("Show PW");
+    }
 }
 
 // void MainWindow::SetupRunAnimation()
@@ -480,3 +532,4 @@ void MainWindow::on_BackButton_clicked()
 
 //     RunAnimTimer->start(interval);  // interval의 숫자가 낮을수록 빠르게 재생됨
 // }
+

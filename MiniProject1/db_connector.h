@@ -42,7 +42,7 @@ class db_Connector
 private:
     QString MemberID;
     QString Password;
-    QString BaseUrl = "https://brought-glory-brought-const.trycloudflare.com";
+    QString BaseUrl = "https://men-aims-mae-grown.trycloudflare.com";
 
 public:
     inline void SetMemberID(QString MemberID) { this->MemberID = MemberID; }
@@ -59,7 +59,7 @@ public:
 
     bool SaveRecord(double runTime, double avgSpeed, double distance, double calorie);
 
-    void InsertMemberID();
+    void InsertMember();
 
     void InquiryRecord(class QTableWidget& RecordTable, QString StartDate, QString EndDate);
 };

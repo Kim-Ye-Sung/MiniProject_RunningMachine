@@ -62,6 +62,8 @@ private slots:
 
     void on_BackButton_clicked();
 
+    void on_ShowPWButton_clicked();
+
 private :
     std::unique_ptr<QTimer> Timer;  // 시간, 거리, 칼로리등을 계산할때 사용하는 타이머
 
@@ -98,6 +100,8 @@ private:
     void SettingRecordTable();
 
     QDate DefaultDate;
+
+    bool ShowPw = false;
 
 
 // private:        // 이미지 스프라이트를 위한 변수와 함수 모음

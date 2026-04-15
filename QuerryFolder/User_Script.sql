@@ -1,6 +1,8 @@
 CREATE TABLE Member (
     member_id VARCHAR(10) PRIMARY KEY,
-    CHECK (member_id REGEXP '^[A-Za-z0-9]{1,10}$')
+    password VARCHAR(10) NOT NULL,
+    CHECK (member_id REGEXP '^[A-Za-z0-9]{1,10}$'),
+    CHECK (password REGEXP '^[A-Za-z0-9]{1,10}$')
 );
 
 CREATE TABLE RunningRecord (
@@ -13,6 +15,9 @@ CREATE TABLE RunningRecord (
     record_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (member_id) REFERENCES Member(member_id)
 );
+
+DROP TABLE `Member`;
+DROP TABLE RunningRecord; 
 
 INSERT INTO Member (member_id) VALUES (3);
 

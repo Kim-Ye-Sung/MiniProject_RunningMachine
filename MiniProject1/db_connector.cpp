@@ -237,11 +237,12 @@ bool db_Connector::MemberExists()
 bool db_Connector::IsPasswordRight()
 {
     QNetworkAccessManager manager;
-    QNetworkRequest request(QUrl(BaseUrl + "/member/exists"));
+    QNetworkRequest request(QUrl(BaseUrl + "/member/check_password"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     QJsonObject json;
     json["member_id"] = MemberID;
+    json["password"] = Password;
 
     QNetworkReply* reply = manager.post(request, QJsonDocument(json).toJson());
 
@@ -251,7 +252,7 @@ bool db_Connector::IsPasswordRight()
 
     if (reply->error() != QNetworkReply::NoError)
     {
-        qDebug() << "회원 존재 확인 실패:" << reply->errorString();
+        qDebug() << "비밀번호 확인 실패:" << reply->errorString();
         reply->deleteLater();
         return false;
     }
@@ -262,12 +263,10 @@ bool db_Connector::IsPasswordRight()
     QJsonDocument doc = QJsonDocument::fromJson(responseData);
     QJsonObject obj = doc.object();
 
-    return obj["exists"].toBool();
-
-    return true;
+    return obj["match"].toBool();
 }
 
-void db_Connector::InsertMemberID()
+void db_Connector::InsertMember()
 {
     QNetworkAccessManager manager;
     QNetworkRequest request(QUrl(BaseUrl + "/member/create"));
@@ -275,6 +274,7 @@ void db_Connector::InsertMemberID()
 
     QJsonObject json;
     json["member_id"] = MemberID;
+    json["password"] = Password;
 
     QNetworkReply* reply = manager.post(request, QJsonDocument(json).toJson());
 
