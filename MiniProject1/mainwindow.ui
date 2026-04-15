@@ -27,7 +27,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="Login_UI">
      <widget class="QFrame" name="frame_4">
@@ -54,8 +54,8 @@
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>180</x>
-         <y>240</y>
+         <x>130</x>
+         <y>180</y>
          <width>426</width>
          <height>52</height>
         </rect>
@@ -77,11 +77,12 @@
           </property>
           <property name="font">
            <font>
+            <family>한컴 울주 반구대 암각화체</family>
             <pointsize>25</pointsize>
            </font>
           </property>
           <property name="text">
-           <string>ID :</string>
+           <string>ID   :</string>
           </property>
          </widget>
         </item>
@@ -109,38 +110,20 @@
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QPushButton" name="LoginButton">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>60</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Login</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </widget>
       <widget class="QPushButton" name="ExitButton_LoginUI">
        <property name="geometry">
         <rect>
-         <x>360</x>
-         <y>470</y>
+         <x>340</x>
+         <y>480</y>
          <width>91</width>
          <height>41</height>
         </rect>
        </property>
        <property name="font">
         <font>
+         <family>휴먼편지체</family>
          <pointsize>15</pointsize>
         </font>
        </property>
@@ -151,14 +134,15 @@
       <widget class="QPushButton" name="LoginNoButton">
        <property name="geometry">
         <rect>
-         <x>440</x>
-         <y>400</y>
+         <x>420</x>
+         <y>410</y>
          <width>61</width>
          <height>41</height>
         </rect>
        </property>
        <property name="font">
         <font>
+         <family>휴먼편지체</family>
          <pointsize>13</pointsize>
         </font>
        </property>
@@ -169,14 +153,15 @@
       <widget class="QPushButton" name="LoginYesButton">
        <property name="geometry">
         <rect>
-         <x>300</x>
-         <y>400</y>
+         <x>280</x>
+         <y>410</y>
          <width>61</width>
          <height>41</height>
         </rect>
        </property>
        <property name="font">
         <font>
+         <family>휴먼편지체</family>
          <pointsize>13</pointsize>
         </font>
        </property>
@@ -187,15 +172,15 @@
       <widget class="QLabel" name="WarningLabel">
        <property name="geometry">
         <rect>
-         <x>240</x>
-         <y>100</y>
-         <width>311</width>
+         <x>60</x>
+         <y>40</y>
+         <width>681</width>
          <height>131</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <pointsize>25</pointsize>
+         <pointsize>22</pointsize>
         </font>
        </property>
        <property name="styleSheet">
@@ -212,7 +197,7 @@
        <property name="geometry">
         <rect>
          <x>100</x>
-         <y>300</y>
+         <y>310</y>
          <width>611</width>
          <height>101</height>
         </rect>
@@ -227,6 +212,98 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QWidget" name="layoutWidget_2">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>240</y>
+         <width>426</width>
+         <height>52</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QLabel" name="LoginLabel_2">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>한컴 울주 반구대 암각화체</family>
+            <pointsize>25</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>PW :</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="PWLineEditor">
+          <property name="minimumSize">
+           <size>
+            <width>300</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>300</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>25</pointsize>
+           </font>
+          </property>
+          <property name="mouseTracking">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QPushButton" name="LoginButton">
+       <property name="geometry">
+        <rect>
+         <x>570</x>
+         <y>180</y>
+         <width>111</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>111</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>한컴 울주 반구대 암각화체</family>
+         <pointsize>15</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Login</string>
        </property>
       </widget>
      </widget>
@@ -289,6 +366,7 @@
        </property>
        <property name="font">
         <font>
+         <family>궁서체</family>
          <pointsize>20</pointsize>
         </font>
        </property>
@@ -307,6 +385,7 @@
        </property>
        <property name="font">
         <font>
+         <family>휴먼둥근헤드라인</family>
          <pointsize>20</pointsize>
         </font>
        </property>
@@ -434,6 +513,12 @@
             <height>50</height>
            </size>
           </property>
+          <property name="font">
+           <font>
+            <family>한컴 울주 천전리 각석체</family>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>시작</string>
           </property>
@@ -446,6 +531,12 @@
             <width>0</width>
             <height>50</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>한컴 말랑말랑</family>
+            <pointsize>15</pointsize>
+           </font>
           </property>
           <property name="text">
            <string>기록보기</string>
@@ -460,6 +551,12 @@
             <height>50</height>
            </size>
           </property>
+          <property name="font">
+           <font>
+            <family>한컴 훈민정음 가로쓰기</family>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>로그아웃</string>
           </property>
@@ -472,6 +569,12 @@
             <width>0</width>
             <height>50</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>한컴 훈민정음 세로쓰기</family>
+            <pointsize>15</pointsize>
+           </font>
           </property>
           <property name="text">
            <string>종료</string>
@@ -514,10 +617,10 @@
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">QFrame#TimeFrame {
+        <string notr="true">#TimeFrame {
     border: 2px solid black;
     border-radius: 0px;
-}</string>
+ background-color: #F4A6C1;}</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::Shape::NoFrame</enum>
@@ -583,7 +686,7 @@
        <property name="styleSheet">
         <string notr="true">#SpeedFrame{border: 2px solid black;
     border-radius: 0px;
-     border-left:none;}</string>
+     border-left:none; background-color: #A8E6A3;}</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::Shape::NoFrame</enum>
@@ -646,7 +749,8 @@
        <property name="styleSheet">
         <string notr="true">#DistanceFrame{border: 2px solid black;
     border-radius: 0px;
-     border-left:none;}</string>
+     border-left:none;
+ background-color: #F7D774;}</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::Shape::StyledPanel</enum>
@@ -713,9 +817,12 @@
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">#CalorieFrame{border: 2px solid black;
+        <string notr="true">#CalorieFrame {
+    border: 2px solid black;
     border-radius: 0px;
-     border-left:none;}</string>
+    border-left: none;
+    background-color: #87CEFA;
+}</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::Shape::StyledPanel</enum>
@@ -979,7 +1086,7 @@
         <string notr="true">#TimeFrame_2 {
     border: 2px solid black;
     border-radius: 0px;
-}</string>
+ background-color: #F4A6C1;}</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::Shape::NoFrame</enum>
@@ -1042,10 +1149,15 @@
          <height>150</height>
         </rect>
        </property>
+       <property name="font">
+        <font>
+         <family>맑은 고딕</family>
+        </font>
+       </property>
        <property name="styleSheet">
         <string notr="true">#SpeedFrame_2{border: 2px solid black;
     border-radius: 0px;
-     border-left:none;}</string>
+     border-left:none; background-color: #A8E6A3;}</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::Shape::NoFrame</enum>
@@ -1108,7 +1220,8 @@
        <property name="styleSheet">
         <string notr="true">#DistanceFrame_2{border: 2px solid black;
     border-radius: 0px;
-     border-left:none;}</string>
+     border-left:none;
+ background-color: #F7D774;}</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::Shape::StyledPanel</enum>
@@ -1175,9 +1288,12 @@
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">#CalorieFrame_2{border: 2px solid black;
+        <string notr="true">#CalorieFrame_2 {
+    border: 2px solid black;
     border-radius: 0px;
-     border-left:none;}</string>
+    border-left: none;
+    background-color: #87CEFA;
+}</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::Shape::StyledPanel</enum>
@@ -1239,6 +1355,7 @@
        </property>
        <property name="font">
         <font>
+         <family>한컴 울주 반구대 암각화체</family>
          <pointsize>25</pointsize>
         </font>
        </property>
@@ -1260,6 +1377,7 @@
        </property>
        <property name="font">
         <font>
+         <family>휴먼매직체</family>
          <pointsize>20</pointsize>
         </font>
        </property>
@@ -1281,6 +1399,7 @@
        </property>
        <property name="font">
         <font>
+         <family>휴먼매직체</family>
          <pointsize>15</pointsize>
         </font>
        </property>
@@ -1299,6 +1418,7 @@
        </property>
        <property name="font">
         <font>
+         <family>휴먼매직체</family>
          <pointsize>15</pointsize>
         </font>
        </property>
@@ -1325,6 +1445,7 @@
            <widget class="QLabel" name="label_5">
             <property name="font">
              <font>
+              <family>한컴 울주 반구대 암각화체</family>
               <pointsize>25</pointsize>
              </font>
             </property>
@@ -1340,6 +1461,7 @@
            <widget class="QLabel" name="label_6">
             <property name="font">
              <font>
+              <family>한컴 울주 반구대 암각화체</family>
               <pointsize>25</pointsize>
              </font>
             </property>
@@ -1355,6 +1477,7 @@
            <widget class="QLabel" name="label_7">
             <property name="font">
              <font>
+              <family>한컴 울주 반구대 암각화체</family>
               <pointsize>25</pointsize>
              </font>
             </property>
@@ -1370,6 +1493,7 @@
            <widget class="QLabel" name="label_8">
             <property name="font">
              <font>
+              <family>한컴 울주 반구대 암각화체</family>
               <pointsize>25</pointsize>
              </font>
             </property>
@@ -1389,6 +1513,7 @@
            <widget class="QLabel" name="label">
             <property name="font">
              <font>
+              <family>한컴 울주 반구대 암각화체</family>
               <pointsize>25</pointsize>
              </font>
             </property>
@@ -1404,6 +1529,7 @@
            <widget class="QLabel" name="label_2">
             <property name="font">
              <font>
+              <family>한컴 울주 반구대 암각화체</family>
               <pointsize>25</pointsize>
              </font>
             </property>
@@ -1419,6 +1545,7 @@
            <widget class="QLabel" name="label_3">
             <property name="font">
              <font>
+              <family>한컴 울주 반구대 암각화체</family>
               <pointsize>25</pointsize>
              </font>
             </property>
@@ -1434,6 +1561,7 @@
            <widget class="QLabel" name="label_4">
             <property name="font">
              <font>
+              <family>한컴 울주 반구대 암각화체</family>
               <pointsize>25</pointsize>
              </font>
             </property>
@@ -1460,6 +1588,7 @@
        </property>
        <property name="font">
         <font>
+         <family>한컴 울주 반구대 암각화체</family>
          <pointsize>25</pointsize>
         </font>
        </property>
@@ -1478,6 +1607,7 @@
        </property>
        <property name="font">
         <font>
+         <family>한컴 울주 반구대 암각화체</family>
          <pointsize>25</pointsize>
         </font>
        </property>
@@ -1496,6 +1626,7 @@
        </property>
        <property name="font">
         <font>
+         <family>한컴 울주 반구대 암각화체</family>
          <pointsize>25</pointsize>
         </font>
        </property>
@@ -1514,6 +1645,7 @@
        </property>
        <property name="font">
         <font>
+         <family>한컴 울주 반구대 암각화체</family>
          <pointsize>25</pointsize>
         </font>
        </property>

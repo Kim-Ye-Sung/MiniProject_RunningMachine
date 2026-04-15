@@ -41,17 +41,21 @@ class db_Connector
 {
 private:
     QString MemberID;
-    QString BaseUrl = "https://ide-alot-neighbors-freely.trycloudflare.com";
+    QString Password;
+    QString BaseUrl = "https://brought-glory-brought-const.trycloudflare.com";
 
 public:
     inline void SetMemberID(QString MemberID) { this->MemberID = MemberID; }
     inline QString GetMemberId() const { return MemberID; }
+
+    inline void SetPassword(QString Password) {this->Password = Password;}
 
     db_Connector();
 
     bool Connect();
 
     bool MemberExists();
+    bool IsPasswordRight();
 
     bool SaveRecord(double runTime, double avgSpeed, double distance, double calorie);
 

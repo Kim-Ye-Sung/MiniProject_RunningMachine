@@ -82,13 +82,18 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-bool MainWindow::ID_ConditionCheck(QString ID)      // 로그인 ID 조건을 만족하는지 확인하는 함수
+bool MainWindow::ID_ConditionCheck(QString ID, QString PW)      // 로그인 ID 조건을 만족하는지 확인하는 함수
 {
     QRegularExpression regex("^[A-Za-z0-9]{1,10}$");    // 영어와 숫자로만 이루어진 최대 10자리의 조건
 
     if (!regex.match(ID).hasMatch())
     {
         return false;  // 조건에 맞지 않으면 false를 반환
+    }
+
+    if(!regex.match(PW).hasMatch())
+    {
+        return false;
     }
 
     return true;
@@ -120,9 +125,9 @@ void MainWindow::LoginRecheck() // 정말 아이디가 맞는지 재확인하는
 
 void MainWindow::on_LoginButton_clicked()
 {
-    if(!ID_ConditionCheck(ui->LoginLineEditor->text())) // 로그인 ID 조건을 만족하지 않으면
+    if(!ID_ConditionCheck(ui->LoginLineEditor->text(), ui->PWLineEditor->text())) // 로그인 ID 조건을 만족하지 않으면
     {
-        ui->WarningLabel->setText("! 최대 10자리까지 ! <br>! 영어와 숫자로만 !");   // 주의 문구 나타내기
+        ui->WarningLabel->setText("! ID와 PW 모두 최소 1자리에서 최대 10자리까지 ! <br> !&nbsp;영어와 숫자로만&nbsp;!");   // 주의 문구 나타내기
 
         return;
     }

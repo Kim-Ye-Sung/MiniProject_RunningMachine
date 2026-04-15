@@ -234,6 +234,39 @@ bool db_Connector::MemberExists()
     return obj["exists"].toBool();
 }
 
+bool db_Connector::IsPasswordRight()
+{
+    QNetworkAccessManager manager;
+    QNetworkRequest request(QUrl(BaseUrl + "/member/exists"));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    QJsonObject json;
+    json["member_id"] = MemberID;
+
+    QNetworkReply* reply = manager.post(request, QJsonDocument(json).toJson());
+
+    QEventLoop loop;
+    QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    if (reply->error() != QNetworkReply::NoError)
+    {
+        qDebug() << "회원 존재 확인 실패:" << reply->errorString();
+        reply->deleteLater();
+        return false;
+    }
+
+    QByteArray responseData = reply->readAll();
+    reply->deleteLater();
+
+    QJsonDocument doc = QJsonDocument::fromJson(responseData);
+    QJsonObject obj = doc.object();
+
+    return obj["exists"].toBool();
+
+    return true;
+}
+
 void db_Connector::InsertMemberID()
 {
     QNetworkAccessManager manager;

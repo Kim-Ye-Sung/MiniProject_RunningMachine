@@ -89,7 +89,7 @@ private:
     QString ChangeDistanceText(double DistanceValue);
     QString ChangeCalorieText(double CalorieValue);
 
-    bool ID_ConditionCheck(QString ID);
+    bool ID_ConditionCheck(QString ID, QString PW);
     void LoginRecheck();
     void LoginSuccess();
 
