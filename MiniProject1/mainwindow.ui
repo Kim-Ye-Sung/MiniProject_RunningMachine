@@ -1084,6 +1084,19 @@
         <string/>
        </property>
       </widget>
+      <widget class="QLabel" name="RunAnimLabel_2">
+       <property name="geometry">
+        <rect>
+         <x>550</x>
+         <y>220</y>
+         <width>231</width>
+         <height>211</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="Result_UI">

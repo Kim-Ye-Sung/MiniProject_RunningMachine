@@ -47,23 +47,21 @@ MainWindow::MainWindow(QWidget *parent)
     SpeedDownButtonTimer = std::make_unique<QTimer>();
 
     connect(ui->SpeedUpButton, &QPushButton::pressed, this, [=]()
-             {  SpeedUpButtonTimer->start(100);
-    });
+            {  SpeedUpButtonTimer->start(100);
+            });
 
     connect(ui->SpeedUpButton, &QPushButton::released, this, [=]()
             {   SpeedUpButtonTimer->stop();
-
-    });
+            });
 
     connect(SpeedUpButtonTimer.get(), &QTimer::timeout, this, &MainWindow::SpeedUpButton_Push);
 
     connect(ui->SpeedDownButton, &QPushButton::pressed, this, [=]()
-            {  SpeedDownButtonTimer->start(100);
+            {    SpeedDownButtonTimer->start(100);
             });
 
     connect(ui->SpeedDownButton, &QPushButton::released, this, [=]()
             {   SpeedDownButtonTimer->stop();
-
             });
 
     connect(SpeedDownButtonTimer.get(), &QTimer::timeout, this, &MainWindow::SpeedDownButton_Push);
@@ -165,9 +163,9 @@ void MainWindow::on_StartButton_clicked()
 
     ui->SpeedText->setText((ChangeSpeedText(SpeedCal_Obj->GetSpeed())));
 
-    ui->stackedWidget->setCurrentWidget(ui->Running_UI);
-
     RunAnimTimer->start(AdjustRunAnimSpeed());
+
+    ui->stackedWidget->setCurrentWidget(ui->Running_UI);
 }
 
 void MainWindow::UpdateScreen()
@@ -242,7 +240,11 @@ void MainWindow::on_Speed4Button_clicked()
     ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
 
     RunAnimTimer->setInterval(AdjustRunAnimSpeed());
-    //RunAnimTimer->start(AdjustRunAnimSpeed());
+
+    if(!RunAnimTimer->isActive())
+    {
+        RunAnimTimer->start();
+    }
 }
 
 
@@ -256,6 +258,11 @@ void MainWindow::on_Speed8Button_clicked()
     ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
 
     RunAnimTimer->setInterval(AdjustRunAnimSpeed());
+
+    if(!RunAnimTimer->isActive())
+    {
+        RunAnimTimer->start();
+    }
 }
 
 
@@ -269,6 +276,11 @@ void MainWindow::on_Speed12Button_clicked()
     ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
 
     RunAnimTimer->setInterval(AdjustRunAnimSpeed());
+
+    if(!RunAnimTimer->isActive())
+    {
+        RunAnimTimer->start();
+    }
 }
 
 
@@ -329,9 +341,9 @@ void MainWindow::on_SaveButton_clicked()
     ui->SaveButton->setEnabled(false);
 
     qDebug() << "저장 결과 : " <<   DBC_Obj->SaveRecord(TimeCal_Obj->GetRunTime(),
-                                                       SpeedCal_Obj->GetAvrSpeed(),
-                                                       DistanceCal_Obj->GetDistance(),
-                                                       CalorieCal_Obj->GetCalorie());
+                                                      SpeedCal_Obj->GetAvrSpeed(),
+                                                      DistanceCal_Obj->GetDistance(),
+                                                      CalorieCal_Obj->GetCalorie());
 
     ui->stackedWidget->setCurrentWidget(ui->MainMenu_UI);
 
@@ -495,7 +507,7 @@ void MainWindow::SetupSpriteSheet()
     //         qDebug() << "이미지 로드 성공!";
     //     }
 
-    RunSpriteSheet.load("C:/SourceBank/MiniProject_RunningMachine/MiniProject1/images/Toko_Run.png");
+    RunSpriteSheet.load("C:/Users/KYS/Documents/GitHub/MiniProject_RunningMachine/MiniProject1/images/Toko_Run.png");
 
     if (RunSpriteSheet.isNull())
     {
@@ -508,6 +520,8 @@ void MainWindow::SetupSpriteSheet()
 
     RunAnimTimer = std::make_unique<QTimer>();
     connect(RunAnimTimer.get(), &QTimer::timeout, this, &MainWindow::UpdateRunAnimation);
+
+    UpdateRunAnimation();
 }
 
 void MainWindow::UpdateRunAnimation()
@@ -528,6 +542,17 @@ void MainWindow::UpdateRunAnimation()
         );
 
     ui->RunAnimLabel->setPixmap(scaledFrame);
+
+    frame = frame.transformed(QTransform().scale(-1,1)); // 현재 그림을 좌우 반전
+
+    scaledFrame = frame.scaled(
+    ui->RunAnimLabel_2->width(),
+    ui->RunAnimLabel_2->height(),
+    Qt::KeepAspectRatio,
+    Qt::SmoothTransformation
+    );
+
+    ui->RunAnimLabel_2->setPixmap(scaledFrame);
 
     CurrentFrame++;
     if (CurrentFrame >= TotalFrames)
