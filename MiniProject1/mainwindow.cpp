@@ -74,9 +74,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->PWLineEditor->setEchoMode(QLineEdit::Password); // 비밀번호 입력란의 입력을 안보이게 하기.
 
-
-    // SpeedCal_Obj->SetSpeed(4.0); // 여기 변경
-    // SetupRunAnimation();        // 여기 변경
+    SetupSpriteSheet();
 }
 
 MainWindow::~MainWindow()
@@ -168,6 +166,8 @@ void MainWindow::on_StartButton_clicked()
     ui->SpeedText->setText((ChangeSpeedText(SpeedCal_Obj->GetSpeed())));
 
     ui->stackedWidget->setCurrentWidget(ui->Running_UI);
+
+    RunAnimTimer->start(AdjustRunAnimSpeed());
 }
 
 void MainWindow::UpdateScreen()
@@ -241,7 +241,8 @@ void MainWindow::on_Speed4Button_clicked()
 
     ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
 
-    // UpdateRunAnimationSpeed();  // 여기 변경
+    RunAnimTimer->setInterval(AdjustRunAnimSpeed());
+    //RunAnimTimer->start(AdjustRunAnimSpeed());
 }
 
 
@@ -254,7 +255,7 @@ void MainWindow::on_Speed8Button_clicked()
 
     ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
 
-    // UpdateRunAnimationSpeed();  // 여기 변경
+    RunAnimTimer->setInterval(AdjustRunAnimSpeed());
 }
 
 
@@ -267,7 +268,7 @@ void MainWindow::on_Speed12Button_clicked()
 
     ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
 
-    // UpdateRunAnimationSpeed();  // 여기 변경
+    RunAnimTimer->setInterval(AdjustRunAnimSpeed());
 }
 
 
@@ -279,7 +280,15 @@ void MainWindow::SpeedDownButton_Push()
 
     ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
 
-    // UpdateRunAnimationSpeed();  // 여기 변경
+    if(SpeedCal_Obj->GetSpeed() == 0.0f)
+    {
+        RunAnimTimer->stop();
+
+        return;
+    }
+
+
+    RunAnimTimer->setInterval(AdjustRunAnimSpeed());
 }
 
 
@@ -291,7 +300,12 @@ void MainWindow::SpeedUpButton_Push()
 
     ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
 
-    // UpdateRunAnimationSpeed();  // 여기 변경
+    RunAnimTimer->setInterval(AdjustRunAnimSpeed());
+
+    if(!RunAnimTimer->isActive())
+    {
+        RunAnimTimer->start();
+    }
 }
 
 
@@ -304,8 +318,9 @@ void MainWindow::on_EndButton_clicked()
     ui->ResultDistanceText->setText(ChangeDistanceText(DistanceCal_Obj->GetDistance()));
     ui->ResultCalorieText->setText(ChangeCalorieText(CalorieCal_Obj->GetCalorie()));
 
-
     ui->stackedWidget->setCurrentWidget(ui->Result_UI);
+
+    RunAnimTimer->stop();
 }
 
 
@@ -460,76 +475,70 @@ void MainWindow::on_ShowPWButton_clicked()
     }
 }
 
-// void MainWindow::SetupRunAnimation()
-// {
-//     qDebug() << "현재 작업 폴더:" << QDir::currentPath();
+void MainWindow::SetupSpriteSheet()
+{
+    //     qDebug() << "현재 작업 폴더:" << QDir::currentPath();
 
-//     QString path = "../../images/WomanRun.png";
-//     qDebug() << "확인할 이미지 경로:" << QFileInfo(path).absoluteFilePath();
-//     qDebug() << "파일 존재 여부:" << QFileInfo::exists(path);
+    //     QString path = "../../images/WomanRun.png";
+    //     qDebug() << "확인할 이미지 경로:" << QFileInfo(path).absoluteFilePath();
+    //     qDebug() << "파일 존재 여부:" << QFileInfo::exists(path);
 
-//     RunSpriteSheet.load(path);
+    //     RunSpriteSheet.load(path);
 
-//     if (RunSpriteSheet.isNull())
-//     {
-//         qDebug() << "이미지 로드 실패!";
-//         return;
-//     }
-//     else
-//     {
-//         qDebug() << "이미지 로드 성공!";
-//     }
+    //     if (RunSpriteSheet.isNull())
+    //     {
+    //         qDebug() << "이미지 로드 실패!";
+    //         return;
+    //     }
+    //     else
+    //     {
+    //         qDebug() << "이미지 로드 성공!";
+    //     }
 
-//     FrameWidth = RunSpriteSheet.width() / Columns;
-//     FrameHeight = RunSpriteSheet.height() / Rows;
+    RunSpriteSheet.load("C:/SourceBank/MiniProject_RunningMachine/MiniProject1/images/Toko_Run.png");
 
-//     RunAnimTimer = new QTimer(this);
-//     connect(RunAnimTimer, &QTimer::timeout, this, &MainWindow::UpdateRunAnimation);
+    if (RunSpriteSheet.isNull())
+    {
+        qDebug() << "스프라이트 시트 로드 실패";
+        return;
+    }
 
-//     UpdateRunAnimation();
-//     UpdateRunAnimationSpeed();
-// }
+    FrameWidth = RunSpriteSheet.width() / TotalFrames;
+    FrameHeight = RunSpriteSheet.height();
 
-// void MainWindow::UpdateRunAnimation()
-// {
-//     if (RunSpriteSheet.isNull())
-//         return;
+    RunAnimTimer = std::make_unique<QTimer>();
+    connect(RunAnimTimer.get(), &QTimer::timeout, this, &MainWindow::UpdateRunAnimation);
+}
 
-//     int row = CurrentRunFrame / Columns;
-//     int col = CurrentRunFrame % Columns;
+void MainWindow::UpdateRunAnimation()
+{
+    if (RunSpriteSheet.isNull())
+        return;
 
-//     QPixmap frame = RunSpriteSheet.copy(col * FrameWidth,
-//                                         row * FrameHeight,
-//                                         FrameWidth,
-//                                         FrameHeight);
+    int x = CurrentFrame * FrameWidth;
+    int y = 0;
 
-//     ui->RunnerLabel->setPixmap(frame);
-//     ui->RunnerLabel->setScaledContents(true);
+    QPixmap frame = RunSpriteSheet.copy(x, y, FrameWidth, FrameHeight);
 
-//     CurrentRunFrame++;
-//     if (CurrentRunFrame >= TotalFrames)
-//         CurrentRunFrame = 0;
-// }
+    QPixmap scaledFrame = frame.scaled(     // 스프라이트의 크기를 라벨의 크기에 맞춤
+        ui->RunAnimLabel->width(),
+        ui->RunAnimLabel->height(),
+        Qt::KeepAspectRatio,
+        Qt::SmoothTransformation
+        );
 
-// void MainWindow::UpdateRunAnimationSpeed()
-// {
-//     double speed = SpeedCal_Obj->GetSpeed();
+    ui->RunAnimLabel->setPixmap(scaledFrame);
 
-//     // 0이면 멈춤
-//     if (speed <= 0.0)
-//     {
-//         RunAnimTimer->stop();
-//         return;
-//     }
+    CurrentFrame++;
+    if (CurrentFrame >= TotalFrames)
+    {
+        CurrentFrame = 0;
+    }
+}
 
-//     // 속도를 타이머 간격으로 변환
-//     int interval = 150 - (speed * 7);
-//     // speed=0 → 150ms (느림)
-//     // speed=15 → 45ms (빠름)
+int MainWindow::AdjustRunAnimSpeed()
+{
+    int interval = maxInterval - static_cast<int>((SpeedCal_Obj->GetSpeed() / maxSpeed) * (maxInterval - minInterval));
 
-//     if (interval < 30)
-//         interval = 30;  // 최소 제한
-
-//     RunAnimTimer->start(interval);  // interval의 숫자가 낮을수록 빠르게 재생됨
-// }
-
+    return interval;
+}

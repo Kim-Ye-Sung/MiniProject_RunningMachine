@@ -27,3 +27,5 @@ FROM Book;
 select count(*)
 from Book
 where bookid =1;
+
+SELECT NOW(), CURRENT_TIMESTAMP(), @@session.time_zone, @@global.time_zone;

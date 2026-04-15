@@ -27,7 +27,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="Login_UI">
      <widget class="QFrame" name="frame_4">
@@ -322,8 +322,7 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">// #ShowPWButton{  border: 2px solid black;
- }</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>Show PW</string>
@@ -1070,6 +1069,19 @@
        </property>
        <property name="text">
         <string>Stop</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="RunAnimLabel">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>220</y>
+         <width>231</width>
+         <height>211</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </widget>

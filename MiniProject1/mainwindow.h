@@ -103,20 +103,26 @@ private:
 
     bool ShowPw = false;
 
+private:
+    QPixmap RunSpriteSheet;   // 전체 스프라이트 시트
+    std::unique_ptr<QTimer> RunAnimTimer;     // 애니메이션용 타이머
 
-// private:        // 이미지 스프라이트를 위한 변수와 함수 모음
-//     QTimer* RunAnimTimer = nullptr;
-//     QPixmap RunSpriteSheet;
+    int CurrentFrame = 0;     // 현재 프레임 번호
+    int TotalFrames = 8;      // 총 프레임 수
 
-//     int CurrentRunFrame = 0;
-//     int FrameWidth = 0;
-//     int FrameHeight = 0;
-//     int TotalFrames = 18;
-//     int Columns = 9;
-//     int Rows = 2;
+    int FrameWidth = 0;       // 한 칸 너비
+    int FrameHeight = 0;      // 한 칸 높이
 
-//     void SetupRunAnimation();
-//     void UpdateRunAnimation();
-//     void UpdateRunAnimationSpeed();
+    double minSpeed = 0.0;    // 속도계산기의 최저 속도
+    double maxSpeed = 15.0;   // 속도계산기의 최대 속도
+
+    int maxInterval = 300; // 런닝머신의 속도가 제일 느릴때 전환할 애니메이션 전환속도
+    int minInterval = 10;  // 런닝머신의 속도가 제일 빠를때 전환할 애니메이션 전환속도
+
+    void SetupSpriteSheet();
+
+    void UpdateRunAnimation();
+
+    int AdjustRunAnimSpeed();
 };
 #endif // MAINWINDOW_H
