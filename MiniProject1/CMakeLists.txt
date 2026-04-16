@@ -132,6 +132,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         caloriecalculator.cpp
         db_connector.h
         db_connector.cpp
+        resources.qrc
     )
 
     qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})

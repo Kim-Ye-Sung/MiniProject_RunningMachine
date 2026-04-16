@@ -163,7 +163,9 @@ void MainWindow::on_StartButton_clicked()
 
     ui->SpeedText->setText((ChangeSpeedText(SpeedCal_Obj->GetSpeed())));
 
-    RunAnimTimer->start(AdjustRunAnimSpeed());
+    AnimElapsed.start();
+    AnimAccumulator = 0;
+    RunAnimTimer->start(AnimTickInterval);
 
     ui->stackedWidget->setCurrentWidget(ui->Running_UI);
 }
@@ -239,11 +241,9 @@ void MainWindow::on_Speed4Button_clicked()
 
     ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
 
-    RunAnimTimer->setInterval(AdjustRunAnimSpeed());
-
     if(!RunAnimTimer->isActive())
     {
-        RunAnimTimer->start();
+        RunAnimTimer->start(AnimTickInterval);
     }
 }
 
@@ -257,11 +257,9 @@ void MainWindow::on_Speed8Button_clicked()
 
     ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
 
-    RunAnimTimer->setInterval(AdjustRunAnimSpeed());
-
     if(!RunAnimTimer->isActive())
     {
-        RunAnimTimer->start();
+        RunAnimTimer->start(AnimTickInterval);
     }
 }
 
@@ -275,11 +273,9 @@ void MainWindow::on_Speed12Button_clicked()
 
     ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
 
-    RunAnimTimer->setInterval(AdjustRunAnimSpeed());
-
     if(!RunAnimTimer->isActive())
     {
-        RunAnimTimer->start();
+        RunAnimTimer->start(AnimTickInterval);
     }
 }
 
@@ -292,15 +288,12 @@ void MainWindow::SpeedDownButton_Push()
 
     ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
 
-    if(SpeedCal_Obj->GetSpeed() == 0.0f)
+    if(SpeedCal_Obj->GetSpeed() <= 0.0f)
     {
         RunAnimTimer->stop();
 
         return;
     }
-
-
-    RunAnimTimer->setInterval(AdjustRunAnimSpeed());
 }
 
 
@@ -312,11 +305,9 @@ void MainWindow::SpeedUpButton_Push()
 
     ui->SpeedText->setText(ChangeSpeedText(SpeedCal_Obj->GetSpeed()));
 
-    RunAnimTimer->setInterval(AdjustRunAnimSpeed());
-
     if(!RunAnimTimer->isActive())
     {
-        RunAnimTimer->start();
+        RunAnimTimer->start(AnimTickInterval);
     }
 }
 
@@ -507,9 +498,9 @@ void MainWindow::SetupSpriteSheet()
     //         qDebug() << "이미지 로드 성공!";
     //     }
 
-    RunSpriteSheet.load("C:/SourceBank/MiniProject_RunningMachine/MiniProject1/images/Toko_Run.png");
+    // RunSpriteSheet.load("C:/SourceBank/MiniProject_RunningMachine/MiniProject1/images/Toko_Run.png");
     // RunSpriteSheet.load("images/Toko_Run.png");
-    // RunSpriteSheet.load(":/images/Toko_Run.png");
+    RunSpriteSheet.load(":/images/images/Toko_Run.png");
 
 
     if (RunSpriteSheet.isNull())
@@ -524,7 +515,8 @@ void MainWindow::SetupSpriteSheet()
     RunAnimTimer = std::make_unique<QTimer>();
     connect(RunAnimTimer.get(), &QTimer::timeout, this, &MainWindow::UpdateRunAnimation);
 
-    UpdateRunAnimation();
+    ChangeFrame();  // 스타트버튼을 누르고 나서 프레임에 스프라이트를 넣으면 뒤늦게 로딩되서 처음에 안보일때가 있다.
+                    // 따라서 프로그램 시작시에 바로 프레임에 스프라이트 한컷을 바로 넣어준다.
 }
 
 void MainWindow::UpdateRunAnimation()
@@ -532,12 +524,33 @@ void MainWindow::UpdateRunAnimation()
     if (RunSpriteSheet.isNull())
         return;
 
+    // 속도가 0이면 애니메이션 멈춤
+    if (SpeedCal_Obj->GetSpeed() <= 0.0)
+        return;
+
+    int delta = AnimElapsed.restart();  // UpdateRunAnimation() 이 저번에 실행됐을때와 이번에 실행됐을때의 시간 차이를 delta에 저장
+    AnimAccumulator += delta;
+
+    int currentFrameInterval = AdjustRunAnimSpeed();
+
+    // 아직 프레임 바꿀 시간이 안 됐으면 그냥 종료
+    if (AnimAccumulator < currentFrameInterval)
+        return;
+
+    // 프레임 하나 진행
+    AnimAccumulator = 0;
+
+    ChangeFrame();
+}
+
+void MainWindow::ChangeFrame()
+{
     int x = CurrentFrame * FrameWidth;
     int y = 0;
 
     QPixmap frame = RunSpriteSheet.copy(x, y, FrameWidth, FrameHeight);
 
-    QPixmap scaledFrame = frame.scaled(     // 스프라이트의 크기를 라벨의 크기에 맞춤
+    QPixmap scaledFrame = frame.scaled(
         ui->RunAnimLabel->width(),
         ui->RunAnimLabel->height(),
         Qt::KeepAspectRatio,
@@ -546,14 +559,14 @@ void MainWindow::UpdateRunAnimation()
 
     ui->RunAnimLabel->setPixmap(scaledFrame);
 
-    frame = frame.transformed(QTransform().scale(-1,1)); // 현재 그림을 좌우 반전
+    frame = frame.transformed(QTransform().scale(-1, 1));
 
     scaledFrame = frame.scaled(
-    ui->RunAnimLabel_2->width(),
-    ui->RunAnimLabel_2->height(),
-    Qt::KeepAspectRatio,
-    Qt::SmoothTransformation
-    );
+        ui->RunAnimLabel_2->width(),
+        ui->RunAnimLabel_2->height(),
+        Qt::KeepAspectRatio,
+        Qt::SmoothTransformation
+        );
 
     ui->RunAnimLabel_2->setPixmap(scaledFrame);
 

@@ -8,6 +8,8 @@
 #include <QPixmap>
 #include <QDate>
 
+#include <QElapsedTimer>
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -119,9 +121,15 @@ private:
     int maxInterval = 300; // 런닝머신의 속도가 제일 느릴때 전환할 애니메이션 전환속도
     int minInterval = 10;  // 런닝머신의 속도가 제일 빠를때 전환할 애니메이션 전환속도
 
+    QElapsedTimer AnimElapsed;
+    int AnimAccumulator = 0;
+    int AnimTickInterval = 16;   // 16ms ~= 60fps 느낌
+
     void SetupSpriteSheet();
 
     void UpdateRunAnimation();
+
+    void ChangeFrame();
 
     int AdjustRunAnimSpeed();
 };
