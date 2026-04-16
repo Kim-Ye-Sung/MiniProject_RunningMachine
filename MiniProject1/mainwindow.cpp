@@ -507,7 +507,10 @@ void MainWindow::SetupSpriteSheet()
     //         qDebug() << "이미지 로드 성공!";
     //     }
 
-    RunSpriteSheet.load("C:/Users/KYS/Documents/GitHub/MiniProject_RunningMachine/MiniProject1/images/Toko_Run.png");
+    RunSpriteSheet.load("C:/SourceBank/MiniProject_RunningMachine/MiniProject1/images/Toko_Run.png");
+    // RunSpriteSheet.load("images/Toko_Run.png");
+    // RunSpriteSheet.load(":/images/Toko_Run.png");
+
 
     if (RunSpriteSheet.isNull())
     {
