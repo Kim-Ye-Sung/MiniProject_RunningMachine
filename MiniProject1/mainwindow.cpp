@@ -485,8 +485,8 @@ void MainWindow::on_ShowPWButton_clicked()
 void MainWindow::SetupSpriteSheet()
 {
     // RunSpriteSheet.load("C:/SourceBank/MiniProject_RunningMachine/MiniProject1/images/Toko_Run.png");    // 절대경로로 해야할때
-    RunSpriteSheet.load("images/Toko_Run.png");  // 배포폴더 기준으로 상대경로 해야할때. exe파일이 있는곳에서 images폴더가 있고 그 안에 이미지가 있어야한다.
-    // RunSpriteSheet.load(":/images/images/Toko_Run.png");    // qrc파일로 담아서 배포할때 사용. 빌드후에는 이미지가 없어도 프로그램이 작동한다.
+    // RunSpriteSheet.load("images/Toko_Run.png");  // 배포폴더 기준으로 상대경로 해야할때. exe파일이 있는곳에서 images폴더가 있고 그 안에 이미지가 있어야한다.
+    RunSpriteSheet.load(":/images/images/Toko_Run.png");    // qrc파일로 담아서 배포할때 사용. 빌드후에는 이미지가 없어도 프로그램이 작동한다.
 
 
     if (RunSpriteSheet.isNull())
