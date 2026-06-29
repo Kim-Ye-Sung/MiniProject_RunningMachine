@@ -1,783 +1,496 @@
-# MiniProject_RunningMachine
-부경대IoT 미니프로젝트 과제
+# RunningMachine
 
+RunningMachine은 Qt/C++로 만든 러닝머신 운동 기록 시뮬레이터입니다. 운동 중 시간, 속도, 거리, 칼로리를 실시간으로 계산하고, 운동 종료 후 결과를 저장한 뒤 날짜 범위로 이전 기록을 다시 조회할 수 있도록 만들었습니다.
 
-# Qt 사용법
+처음에는 Qt 데스크톱 앱 내부에서 운동 상태를 계산하고 화면에 표시하는 기능이 중심이었습니다. 이후 운동 기록을 사용자별로 남기기 위해 MySQL을 추가했고, 다른 컴퓨터에서 실행한 앱도 같은 기록 저장소를 사용할 수 있도록 Flask API 서버와 Cloudflare Quick Tunnel을 연결했습니다.
 
-## UI 관련
-1. 기본적으로 UI 배치는 mainwindow.ui 라는 파일에서 작업한다.
+---
 
-2. 
+## 데모 자료 추가 위치
 
+아래 영역은 실제 실행 화면이나 영상을 넣기 위한 자리입니다. 자료가 준비되면 이미지 경로나 영상 링크로 교체하면 됩니다.
 
-## 화면 전환 관련
-1. 기본적으로 화면은 하나지만 여러개로 작업하고 싶다면 stackedWidget이라는 콘테이너 객체를 화면에 드래그해서 넣는다.
-    - 그러면 ObjectInspector창에서 stackedWidget 오브젝트를 마우스 우클릭하고 InsertPage를 통해 여러개의 페이지를 만들수 있다.
-    - 이러면 페이지 하나당 내가 전환하고픈 화면 하나인 것이다.
+| 구분 | 넣으면 좋은 자료 | 교체 예시 |
+|---|---|---|
+| 로그인 화면 | ID/PW 입력, 회원 확인, 회원 생성 흐름 | <code>![로그인 화면](docs/images/login.png)</code> |
+| 러닝 중 화면 | 시간, 속도, 거리, 칼로리 실시간 갱신 화면 | <code>![러닝 중 화면](docs/images/running.png)</code> |
+| 결과 화면 | 운동 종료 후 총 운동 결과와 저장 선택 화면 | <code>![결과 화면](docs/images/result.png)</code> |
+| 기록 조회 화면 | 날짜 범위 선택 후 기록 테이블 조회 화면 | <code>![기록 조회 화면](docs/images/records.png)</code> |
+| 실행 영상 | 로그인부터 기록 조회까지 전체 흐름 | <code>[실행 영상 보기](docs/videos/demo.mp4)</code> |
 
-2. 화면을 전환하는 방법
-    - cpp파일에서 UI::MainWindow 객체의 포인터를 사용해서 전환한다. 페이지가 몇번 인덱스인지 기억하기 힘드므로 `2번 방법을 추천`한다.
-        - ex_1    ui->stackedWidget->SetCurrentIndex(전환하고픈 화면의 인덱스);
-        - ex_2    ui->stackedWidget->SetCurrentWidget(ui->전환하고픈 페이지 객체의 이름);
+~~~text
+여기에 대표 실행 GIF 또는 데모 영상을 넣어주세요.
+추천 흐름: 로그인 -> 운동 시작 -> 속도 조절 -> 운동 종료 -> 기록 저장 -> 기록 조회
+~~~
 
-    **작동을 하면 기본적으로 내가 ui에서 작업하던 화면으로 시작을 해버리니, MainWidow 생성자에서 화면을 초기화해주는 것이 좋다.**
-    
+---
 
+## 개요
 
-## 버튼 관련
-1. 버튼 누름 관련 함수
-    - 게임엔진처럼 버튼을 눌렀을때 실행할 함수를 연결할수있다.
-        - 기본적으로 Qt에서 제공하는 기능이며, mainwindow.ui에서 실행하고자 할 버튼을 우클릭 하고 "Go to slot..."을 누르면 원하는 함수를 바인딩할수있다.
-        - 바인딩할 함수를 클릭하면 mainwindow.h와 cpp파일에 함수가 생긴다. 보통 함수명은 "on_버튼객체명_clicked()"와 같이 생성되며, 이런식의 함수 이름으로 되어있다면 Qt에서 자동으로 그 버튼에 이 함수를 바인딩해준다.
+### 무엇을 만든 프로그램인가
 
-## 꾸미기 관련
-#### `객체의 Property에서 "styleSheet" 부분에 입력한다.`
-1. 테두리1(테두리 전체 색칠)
-    - 테두리가 없는 객체들이 많다. 이것을 해결하기 위해서는 그 객체의 Property에서 "styleSheet" 부분에 "border: 1px solid black;" 라는 것을 입력하면 검은색의 테두리가 생긴다.
+RunningMachine은 사용자가 데스크톱 앱에서 러닝머신 운동을 시뮬레이션하고, 운동 결과를 저장·조회할 수 있는 프로그램입니다.
 
-2. 테두리2(부분 테두리 색칠)
-    - 테두리 하나하나만 하고 싶을때 사용하는 코드이다. 예를들어 Frame이 사각형인데, 각 방향으로 원하는 곳만 색칠하고 싶다면 방향을 입력해야한다.
-        - ex_1  border-right: 2px solid black;  // 사각형중에 오른쪽 부분을 검은색으로 칠한다.
-        - ex_2  border-left:none;    // 사각형중 왼쪽은 칠하지 않는다.
+앱에서 할 수 있는 일은 다음과 같습니다.
 
-3. 테두리3(각진 부분 없애기)
-    - Framer같은 거라던가 사각형의 모서리 부분이 각지지 않고 약간 둥글수 있다. 그때 각지게 만들어주고 싶다면 다음과 같이 입력한다.
-        - ex_1 border-radius: 0px;
+- ID/PW를 입력해 로그인하거나 새 회원을 생성합니다.
+- 운동을 시작하면 시간, 속도, 거리, 칼로리가 실시간으로 갱신됩니다.
+- 4/8/12km/h 버튼과 증감 버튼으로 속도를 조절합니다.
+- 운동을 종료하면 총 운동 시간, 평균 속도, 거리, 칼로리를 확인합니다.
+- 운동 결과를 서버로 보내 MySQL에 저장합니다.
+- 날짜 범위를 선택해 이전 운동 기록을 조회합니다.
 
-4. 특정 객체만 적용하기
-    - Frame안에 자식 객체들이 있으면 내가 Frame에 "border: 1px solid black;"으로 색을 칠하면 안에 있는 객체들까지 전부 동일하게 적용된다. 이때 Frame만 적용하고 싶다면 다음과 같이 입력한다. 
-        - ex_1 #프레임객체명{border: 2px solid black;}  // 이러면 프레임객체명의 객체만 적용된다. 반드시 중괄호로 감싸줘야하는걸 잊지말자.
+### 왜 만들었는가
 
-5. 색깔 변경
-    - background-color: #3498db;  이렇게 색깔 코드를 입력하면 버튼이라던가 라벨등의 백그라운드 색깔이 변경된다.
-    - color: white; 이것은 버튼이나 라벨등 안에 있는 글자의 색깔을 변경하는 코드다.
+단순히 화면에서 숫자만 변하는 앱이라면 운동을 종료하는 순간 데이터가 사라집니다. 그래서 운동 결과를 사용자별로 저장하고, 다시 조회할 수 있는 구조까지 연결하고 싶었습니다.
 
-6. 버튼 모양 둥글게(원형)
-    - 기본적으로 버튼등은 사각형 모양으로 시작한다. 그것을 완전 원형으로 변경하려면 다음의 예제처럼 하면 된다.
-        - ex_1  width: 50px; height: 50px; border-radius: 25px;   /* 크기의 절반 */ 
-        - 이처럼 가로, 세로의 길이를 동일하게하고 모서리부분을 그것의 절반으로 설정하면 완전한 타원형이 된다.
+이 과정에서 앱은 다음처럼 확장되었습니다.
 
+1. Qt/C++로 운동 화면과 실시간 계산 기능을 만들었습니다.
+2. 운동 결과를 남기기 위해 MySQL 테이블을 설계했습니다.
+3. 클라이언트가 DB에 직접 접근하지 않도록 Flask API 서버를 만들었습니다.
+4. 다른 컴퓨터에서도 같은 서버에 접근할 수 있도록 Cloudflare Quick Tunnel을 사용했습니다.
+5. Qt 클라이언트에서 서버 API를 호출해 저장과 조회 기능을 연결했습니다.
 
+### 사용한 기술
 
+| 구분 | 사용 기술 | 사용한 이유 |
+|---|---|---|
+| 데스크톱 앱 | Qt Widgets, C++17 | 버튼 이벤트, 화면 전환, 테이블 표시, 실시간 화면 갱신을 구현하기 위해 사용했습니다. |
+| 실시간 처리 | QTimer | 일정 주기마다 운동 시간, 거리, 칼로리를 다시 계산하기 위해 사용했습니다. |
+| 데이터 저장 | MySQL | 사용자와 운동 기록을 테이블로 나누어 저장하기 위해 사용했습니다. |
+| API 서버 | Flask | Qt 앱과 DB 사이에서 JSON 요청을 처리하기 위해 사용했습니다. |
+| DB 연결 | mysql-connector-python | Flask 서버에서 MySQL에 접근하기 위해 사용했습니다. |
+| 외부 접속 | Cloudflare Quick Tunnel | 로컬 Flask 서버를 외부 HTTPS 주소로 연결하기 위해 사용했습니다. |
+| 배포 | windeployqt | Qt 실행 파일에 필요한 DLL과 플러그인을 함께 구성하기 위해 사용했습니다. |
 
+---
 
+## 전체 구조
 
-# 데이터베이스 연동하는 방법1 (내 컴퓨터에서만)
-1. 시작 메뉴에서 QT라고 입력하면 Qt전용 콘솔앱이 나온다. 그것을 실행한다.
+RunningMachine은 크게 Qt 클라이언트, Flask 서버, MySQL 데이터베이스, Cloudflare Quick Tunnel로 구성됩니다.
 
-2. 콘솔 입력
-    - cd /d 
-    - C:\SourceBank\MiniProject_RunningMachine\MiniProject1\build\Desktop_Qt_6_11_0_MinGW_64_bit-Debug
-    - 이렇게 실행을 하면 Qt 관련 라이브러리와 플러그인을 실행 폴더로 복사해 준다.
+~~~mermaid
+flowchart LR
+    User[사용자] --> Qt[Qt/C++ Desktop App]
+    Qt --> Calc[운동 계산 모듈]
+    Qt --> Connector[db_Connector]
+    Connector --> Tunnel[Cloudflare Quick Tunnel]
+    Tunnel --> Flask[Flask API Server]
+    Flask --> MySQL[(MySQL RunRecordDB)]
+    MySQL --> Member[Member]
+    MySQL --> Record[RunningRecord]
+~~~
 
-3. 확인용 코드로 확인
-    ```cpp
-    #include "db_connector.h"
+각 부분의 역할은 다음과 같습니다.
 
-    #include <QSqlDatabase>
-    #include <QSqlQuery>
-    #include <QSqlError>
-    #include <QSqlDriver>
-    #include <QVariant>
-    #include <QDebug>
-    #include <QCoreApplication>
+| 구성 요소 | 역할 |
+|---|---|
+| Qt/C++ Desktop App | 사용자가 조작하는 화면, 운동 계산, 결과 표시를 담당합니다. |
+| 계산 모듈 | 시간, 속도, 거리, 칼로리를 각각 계산합니다. |
+| db_Connector | Qt 앱에서 Flask API로 JSON 요청을 보냅니다. |
+| Flask API Server | 회원 확인, 회원 생성, 기록 저장, 기록 조회 요청을 처리합니다. |
+| MySQL | 회원 정보와 운동 기록을 저장합니다. |
+| Cloudflare Quick Tunnel | 로컬 Flask 서버를 외부에서 접근 가능한 HTTPS 주소와 연결합니다. |
 
-    db_Connector::db_Connector()
+---
+
+## 기술 설명과 적용 방식
+
+### 1. Qt/C++ 클라이언트
+
+Qt는 C++ 기반의 GUI 프레임워크입니다. 이 프로젝트에서는 Qt Widgets를 사용해 버튼, 텍스트, 테이블, 화면 전환을 구성했습니다.
+
+Qt 클라이언트에서 담당하는 일은 다음과 같습니다.
+
+- 로그인 화면에서 ID/PW를 입력받습니다.
+- 메인 화면에서 운동 시작 또는 기록 조회로 이동합니다.
+- 러닝 화면에서 운동 데이터를 실시간으로 표시합니다.
+- 결과 화면에서 운동 종료 후 총 결과를 보여줍니다.
+- 기록 조회 화면에서 서버로부터 받은 기록 목록을 테이블로 표시합니다.
+
+화면 전환은 QStackedWidget을 사용했습니다. 여러 화면을 하나의 MainWindow 안에 두고, 사용자의 버튼 입력에 따라 현재 보여줄 페이지를 바꾸는 방식입니다.
+
+#### 실시간 갱신
+
+러닝 화면에서는 QTimer를 사용했습니다. QTimer는 일정 시간마다 지정한 함수를 호출할 수 있는 Qt의 타이머 클래스입니다. 이 프로젝트에서는 200ms마다 화면을 갱신하면서 운동 시간, 거리, 칼로리를 다시 계산합니다.
+
+~~~cpp
+void MainWindow::UpdateScreen()
+{
+    for(auto Cal : Calculators)
     {
-        qDebug() << "실행 폴더:" << QCoreApplication::applicationDirPath();
-        qDebug() << "라이브러리 경로들:" << QCoreApplication::libraryPaths();
-        qDebug() << "사용 가능한 드라이버 목록:" << QSqlDatabase::drivers();
-    }
-    ```
-    위와같은 방식으로 확인했을때, 사용 가능한 드라이버 목록에 "QODBC"가 나온다면 사용 가능한 상태이다.
-
-4. ODBC를 사용해서 MySql에 사용하기 위해 MySQL 사이트에서 설치 파일 다운로드하고 설치
-    - 주소 : https://dev.mysql.com/downloads/connector/odbc/?utm_source=chatgpt.com 에서 Windows (x86, 64-bit), MSI Installer 다운로드 후 설치한다.
-
-5. ODBC 설치확인
-    - 시작메뉴에서 `ODBC 데이터 원본` 이라고 검색한다. 
-        - `ODBC 데이터 원본(64비트)`라는게 보인다면 실행한다.
-        - `드라이버`탭에 들어간다.
-        - `MySQL ODBC 9.6 Unicode Driver`가 있다면 설치확인 완료이다.
-
-6. db와 연결
-```cpp
-bool db_Connector::Connect()
-    {
-        QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
-
-        db.setDatabaseName(
-            "DRIVER={MySQL ODBC 9.6 Unicode Driver};"
-            "SERVER=127.0.0.1;"
-            "DATABASE=RunRecordDB;"
-            "USER=KYS;"
-            "PASSWORD=KYS123456;"
-            "PORT=3306;"
-            "OPTION=3;"
-        );
-
-        if (!db.open())
-        {
-            qDebug() << "DB 연결 실패:" << db.lastError().text();
-            return false;
-        }
-
-        qDebug() << "DB 연결 성공";
-        return true;
-    }
-```
-
-7. db에 저장
-```cpp
-    // 저장할때 입력한 멤버ID가 DB에 없으면 멤버 ID를 생성하여 저장
-    bool db_Connector::EnsureMemberExists(int memberId) 
-    {
-        QSqlQuery query;
-        query.prepare("INSERT IGNORE INTO Member (member_id) VALUES (:member_id)");
-        query.bindValue(":member_id", memberId);
-
-        if (!query.exec())
-        {
-            qDebug() << "Member 등록 실패:" << query.lastError().text();
-            return false;
-        }
-
-        return true;
+        Cal->Calculate(UpdateCycle);
     }
 
-    // DB에 저장
-    bool db_Connector::SaveRecord(int memberId, double runTime, double avgSpeed, double distance, double calorie)
-    {
-        if (!EnsureMemberExists(memberId))  
-        {
-            return false;
-        }
+    ui->TimeText->setText(ChangeTimeText(TimeCal_Obj->GetRunTime()));
+    ui->DistanceText->setText(ChangeDistanceText(DistanceCal_Obj->GetDistance()));
+    ui->CalorieText->setText(ChangeCalorieText(CalorieCal_Obj->GetCalorie()));
+}
+~~~
 
-        QSqlQuery query;
-        query.prepare(
-            "INSERT INTO RunningRecord "
-            "(member_id, run_time, avg_speed, distance, calorie) "
-            "VALUES (:member_id, :run_time, :avg_speed, :distance, :calorie)"
-            );
+계산 로직은 한 클래스에 몰아넣지 않고 역할별 클래스로 나누었습니다.
 
-        query.bindValue(":member_id", memberId);
-        query.bindValue(":run_time", runTime);
-        query.bindValue(":avg_speed", avgSpeed);
-        query.bindValue(":distance", distance);
-        query.bindValue(":calorie", calorie);
+| 클래스 | 역할 |
+|---|---|
+| timeCalculator | 운동 시간 누적 |
+| speedCalculator | 현재 속도 변경, 평균 속도 계산 |
+| distanceCalculator | 속도와 시간 간격을 이용한 거리 계산 |
+| calorieCalculator | 걷기/달리기 속도 구간에 따른 칼로리 계산 |
 
-        if (!query.exec())
-        {
-            qDebug() << "기록 저장 실패:" << query.lastError().text();
-            return false;
-        }
+---
 
-        qDebug() << "기록 저장 성공";
-        return true;
+### 2. MySQL 데이터베이스
+
+운동 기록을 저장하기 위해 MySQL을 사용했습니다. 저장해야 하는 데이터는 크게 사용자 정보와 운동 기록으로 나뉩니다.
+
+그래서 Member 테이블과 RunningRecord 테이블을 분리했습니다.
+
+~~~sql
+CREATE TABLE Member (
+    member_id VARCHAR(10) PRIMARY KEY,
+    password VARCHAR(10) NOT NULL,
+    CHECK (member_id REGEXP '^[A-Za-z0-9]{1,10}$'),
+    CHECK (password REGEXP '^[A-Za-z0-9]{1,10}$')
+);
+
+CREATE TABLE RunningRecord (
+    record_id INT AUTO_INCREMENT PRIMARY KEY,
+    member_id VARCHAR(10) NOT NULL,
+    run_time DOUBLE NOT NULL,
+    avg_speed DECIMAL(3,1) NOT NULL,
+    distance DECIMAL(6,3) NOT NULL,
+    calorie DECIMAL(5,1) NOT NULL,
+    record_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (member_id) REFERENCES Member(member_id)
+);
+~~~
+
+Member는 사용자 ID와 비밀번호를 저장하고, RunningRecord는 운동 결과를 저장합니다. RunningRecord.member_id가 Member.member_id를 참조하므로 한 사용자가 여러 운동 기록을 가질 수 있습니다.
+
+~~~mermaid
+erDiagram
+    Member ||--o{ RunningRecord : has
+    Member {
+        varchar member_id PK
+        varchar password
     }
-```
+    RunningRecord {
+        int record_id PK
+        varchar member_id FK
+        double run_time
+        decimal avg_speed
+        decimal distance
+        decimal calorie
+        datetime record_date
+    }
+~~~
 
-# 데이터베이스 연동하는 방법2 (서버를 이용해서? 터널을 열어서?)
-1. 일단 파이썬은 무조건 설치가 되어 있어야한다.
+DB를 설계한 뒤에는 Qt 앱이 이 DB에 어떻게 접근할지 정해야 했습니다. 클라이언트에서 DB에 직접 연결하면 DB 계정 정보가 앱 코드에 들어가고, 다른 컴퓨터에서 접근할 때 설정이 복잡해집니다. 그래서 중간에 API 서버를 두었습니다.
 
-2. 파이썬 파일들을 모아서 실행할 폴더를 생성한다.("RunRecordServer"라는 이름의 폴더를 만들었었다.)
+---
 
-3. 폴더 위치에서 cmd창을 켜고 다음의 코드를 순서대로 실행하여 가상환경을 켠다.
-    ```py
-    python -m venv venv # 가상환경을 만든다
+### 3. Flask API 서버
 
-    venv\Scripts\activate # 가상환경을 켠다
-    ```
+Flask는 Python으로 웹 서버와 API를 만들 수 있는 프레임워크입니다. 이 프로젝트에서는 Qt 클라이언트와 MySQL 사이의 중간 서버로 사용했습니다.
 
-4. 가상환경이 켜진 상태에서 다음의 코드를 순서대로 실행한다.
-    ```cmd
-    pip install Flask
+Qt 앱은 Flask 서버에 JSON 요청을 보내고, Flask 서버는 MySQL에 접근해 필요한 작업을 수행한 뒤 JSON 응답을 반환합니다.
 
-    pip install mysql-connector-python
-    ```
+~~~mermaid
+flowchart LR
+    Qt[Qt/C++ 앱] -->|JSON POST| Flask[Flask API]
+    Flask -->|SQL 실행| DB[(MySQL)]
+    DB --> Flask
+    Flask -->|JSON 응답| Qt
+~~~
 
-5. RunRecordServer폴더에서 `"config.py"` 파일을 만든다. 파일의 내용은 다음과 같다.
-    ```py
-    DB_CONFIG = {
+#### 서버 설정
+
+서버 실행 정보와 DB 접속 정보는 config.py에 분리했습니다.
+
+~~~python
+DB_CONFIG = {
     "host": "127.0.0.1",
-    "user": "KYS",
-    "password": "KYS123456",
+    "user": "DB_USER",
+    "password": "DB_PASSWORD",
     "database": "RunRecordDB"
-    }
+}
 
-    SERVER_HOST = "0.0.0.0"
-    SERVER_PORT = 8000      # 이 포트 번호가 안되면 다른걸로 바꿔도 된다.
-    ```
+SERVER_HOST = "0.0.0.0"
+SERVER_PORT = 8000
+~~~
 
-6.  RunRecordServer폴더에서 `"app.py"` 파일을 만든다. 파일의 내용은 다음과 같다.
-    ```py
-    from flask import Flask, request, jsonify
-    import mysql.connector
-    from config import DB_CONFIG, SERVER_HOST, SERVER_PORT
+SERVER_HOST를 0.0.0.0으로 설정하면, 로컬 내부 요청뿐 아니라 외부에서 들어오는 요청도 받을 수 있습니다.
 
-    app = Flask(__name__)
+#### MySQL 연결
 
+Flask 서버는 요청을 처리할 때 MySQL에 연결합니다. 연결 직후 세션 타임존을 +09:00으로 설정해 기록 시간이 한국 시간 기준으로 저장되도록 했습니다.
 
-    def get_connection():
-        return mysql.connector.connect(
-            host=DB_CONFIG["host"],
-            user=DB_CONFIG["user"],
-            password=DB_CONFIG["password"],
-            database=DB_CONFIG["database"]
-        )
-
-
-    @app.route("/member/exists", methods=["POST"])
-    def member_exists():
-        data = request.get_json()
-
-        if not data or "member_id" not in data:
-            return jsonify({"success": False, "message": "member_id is required"}), 400
-
-        member_id = data["member_id"]
-
-        try:
-            conn = get_connection()
-            cursor = conn.cursor()
-
-            query = "SELECT COUNT(*) FROM Member WHERE member_id = %s"
-            cursor.execute(query, (member_id,))
-            count = cursor.fetchone()[0]
-
-            cursor.close()
-            conn.close()
-
-            return jsonify({
-                "success": True,
-                "exists": count >= 1
-            })
-
-        except Exception as e:
-            return jsonify({
-                "success": False,
-                "message": str(e)
-            }), 500
-
-
-    @app.route("/member/create", methods=["POST"])
-    def member_create():
-        data = request.get_json()
-
-        if not data or "member_id" not in data:
-            return jsonify({"success": False, "message": "member_id is required"}), 400
-
-        member_id = data["member_id"]
-
-        try:
-            conn = get_connection()
-            cursor = conn.cursor()
-
-            query = "INSERT IGNORE INTO Member (member_id) VALUES (%s)"
-            cursor.execute(query, (member_id,))
-            conn.commit()
-
-            cursor.close()
-            conn.close()
-
-            return jsonify({
-                "success": True,
-                "message": "member created"
-            })
-
-        except Exception as e:
-            return jsonify({
-                "success": False,
-                "message": str(e)
-            }), 500
-
-
-    @app.route("/record/save", methods=["POST"])
-    def record_save():
-        data = request.get_json()
-
-        required_keys = ["member_id", "run_time", "avg_speed", "distance", "calorie"]
-        if not data or any(key not in data for key in required_keys):
-            return jsonify({"success": False, "message": "missing required fields"}), 400
-
-        try:
-            conn = get_connection()
-            cursor = conn.cursor()
-
-            query = """
-                INSERT INTO RunningRecord
-                (member_id, run_time, avg_speed, distance, calorie)
-                VALUES (%s, %s, %s, %s, %s)
-            """
-            cursor.execute(
-                query,
-                (
-                    data["member_id"],
-                    data["run_time"],
-                    data["avg_speed"],
-                    data["distance"],
-                    data["calorie"]
-                )
-            )
-            conn.commit()
-
-            cursor.close()
-            conn.close()
-
-            return jsonify({
-                "success": True,
-                "message": "record saved"
-            })
-
-        except Exception as e:
-            return jsonify({
-                "success": False,
-                "message": str(e)
-            }), 500
-
-
-    @app.route("/record/inquiry", methods=["POST"])
-    def record_inquiry():
-        data = request.get_json()
-
-        required_keys = ["member_id", "start_date", "end_date"]
-        if not data or any(key not in data for key in required_keys):
-            return jsonify({"success": False, "message": "missing required fields"}), 400
-
-        try:
-            conn = get_connection()
-            cursor = conn.cursor(dictionary=True)
-
-            query = """
-                SELECT
-                    record_date,
-                    run_time,
-                    avg_speed,
-                    distance,
-                    calorie
-                FROM RunningRecord
-                WHERE member_id = %s
-                AND record_date BETWEEN %s AND %s
-                ORDER BY record_date DESC
-            """
-
-            start_datetime = data["start_date"] + " 00:00:00"
-            end_datetime = data["end_date"] + " 23:59:59"
-
-            cursor.execute(query, (data["member_id"], start_datetime, end_datetime))
-            rows = cursor.fetchall()
-
-            result = []
-            for row in rows:
-                total_seconds = int(row["run_time"])
-
-                hour = total_seconds // 3600
-                minute = (total_seconds % 3600) // 60
-                second = total_seconds % 60
-
-                run_time_text = f"{hour:02d}:{minute:02d}:{second:02d}"
-
-                result.append({
-                    "record_date": row["record_date"].strftime("%Y-%m-%d %H:%M"),
-                    "run_time": run_time_text,
-                    "avg_speed": float(row["avg_speed"]),
-                    "distance": float(row["distance"]),
-                    "calorie": float(row["calorie"])
-                })
-
-            cursor.close()
-            conn.close()
-
-            return jsonify({
-                "success": True,
-                "records": result
-            })
-
-        except Exception as e:
-            return jsonify({
-                "success": False,
-                "message": str(e)
-            }), 500
-
-
-        if __name__ == "__main__":
-        app.run(host=SERVER_HOST, port=SERVER_PORT, debug=True)    
-    ```
-
-7. RunRecordServer의 폴더에서 가상환경이 계속 켜진 상태에서 다음과 같이 입력하여 서버실행을 한다.
-    ```cmd
-    python app.py
-
-     * Running on http://127.0.0.1:8000  # 제대로 실행된다면 나올 문장이다.
-    ```
-
-8. 서버와 연결이 제대로 됐고, db와 연결됐는지 확인을 해본다. `현재 가상환경이 켜져있는 cmd창 이외에 RunRecordServer 폴더의 다른 cmd창을 열고 다음과 같이 입력한다.`
-    ```cmd
-    Invoke-RestMethod -Uri "http://127.0.0.1:8000/member/exists" -Method Post -ContentType "application/json" -Body '{"member_id":"abc123"}' # abc123 이라는 ID가 있는지 확인
-
-    Invoke-RestMethod -Uri "http://127.0.0.1:8000/member/create" -Method Post -ContentType "application/json" -Body '{"member_id":"abc123"}' # abc123이라는 ID를 생성
-
-    Invoke-RestMethod -Uri "http://127.0.0.1:8000/record/save" -Method Post -ContentType "application/json" -Body '{"member_id":"abc123","run_time":120.0,"avg_speed":8.5,"distance":0.283,"calorie":15.2}' # abc123의 아이디에 기록을 저장
-
-    Invoke-RestMethod -Uri "http://127.0.0.1:8000/record/inquiry" -Method Post -ContentType "application/json" -Body '{"member_id":"abc123","start_date":"2026-04-01","end_date":"2026-04-30"}'  # abc123의 아이디에 기록이 있는지 확인
-    ```
-
-9. CMakeLists.txt를 다음과 같이 수정
-    ```txt
-        cmake_minimum_required(VERSION 3.16)
-
-    project(MiniProject1 VERSION 0.1 LANGUAGES CXX)
-
-    set(CMAKE_AUTOUIC ON)
-    set(CMAKE_AUTOMOC ON)
-    set(CMAKE_AUTORCC ON)
-
-    set(CMAKE_CXX_STANDARD 17)
-    set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-    find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Sql Network LinguistTools)
-    find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Sql Network LinguistTools)
-
-    set(TS_FILES MiniProject1_ko_KR.ts)
-
-    set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-        ${TS_FILES}
+~~~python
+def get_connection():
+    conn = mysql.connector.connect(
+        host=DB_CONFIG["host"],
+        user=DB_CONFIG["user"],
+        password=DB_CONFIG["password"],
+        database=DB_CONFIG["database"]
     )
 
-    if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-        qt_add_executable(MiniProject1
-            MANUAL_FINALIZATION
-            ${PROJECT_SOURCES}
-            Calculator.h
-            Calculator.cpp
-            TimeCalculator.h
-            TimeCalculator.cpp
-            speedcalculator.h
-            speedcalculator.cpp
-            distancecalculator.h
-            distancecalculator.cpp
-            caloriecalculator.h
-            caloriecalculator.cpp
-            db_connector.h
-            db_connector.cpp
-        )
-
-        qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
-    else()
-        if(ANDROID)
-            add_library(MiniProject1 SHARED
-                ${PROJECT_SOURCES}
-            )
-        else()
-            add_executable(MiniProject1
-                ${PROJECT_SOURCES}
-            )
-        endif()
-
-        qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
-    endif()
-
-    target_link_libraries(MiniProject1
-        PRIVATE
-        Qt${QT_VERSION_MAJOR}::Widgets
-        Qt${QT_VERSION_MAJOR}::Sql
-        Qt${QT_VERSION_MAJOR}::Network
-    )
-
-    if(${QT_VERSION} VERSION_LESS 6.1.0)
-        set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.MiniProject1)
-    endif()
-
-    set_target_properties(MiniProject1 PROPERTIES
-        ${BUNDLE_ID_OPTION}
-        MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-        MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-        MACOSX_BUNDLE TRUE
-        WIN32_EXECUTABLE TRUE
-    )
-
-    include(GNUInstallDirs)
-    install(TARGETS MiniProject1
-        BUNDLE DESTINATION .
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    )
-
-    if(QT_VERSION_MAJOR EQUAL 6)
-        qt_finalize_executable(MiniProject1)
-    endif()
-    ```
-
-10. db_connector.h의 파일을 다음과 같이 수정
-    ```h
-        #pragma once
-
-    #include <QString>
-    #include <QJsonArray>
-
-    class db_Connector
-    {
-    private:
-        QString MemberID;
-        QString BaseUrl = "https://ide-alot-neighbors-freely.trycloudflare.com";  // 여기는 추후에 나올 가상주소를 받고나서 그 주소를 여기다가 똑같이 입력해야한다. 
-
-    public:
-        inline void SetMemberID(QString MemberID) { this->MemberID = MemberID; }
-        inline QString GetMemberId() const { return MemberID; }
-
-        db_Connector();
-
-        bool Connect();
-
-        bool MemberExists();
-
-        bool SaveRecord(double runTime, double avgSpeed, double distance, double calorie);
-
-        void InsertMemberID();
-
-        void InquiryRecord(class QTableWidget& RecordTable, QString StartDate, QString EndDate);
-    };
-    ```
-
-11. db_connector.cpp 파일을 다음과 같이 수정
-    ```cpp
-    #include "db_connector.h"
-
-    #include <QNetworkAccessManager>
-    #include <QNetworkRequest>
-    #include <QNetworkReply>
-    #include <QEventLoop>
-    #include <QJsonDocument>
-    #include <QJsonObject>
-    #include <QJsonArray>
-    #include <QTableWidget>
-    #include <QTableWidgetItem>
-    #include <QUrl>
-    #include <QDebug>
-
-    db_Connector::db_Connector()
-    {
-    }
-
-    bool db_Connector::Connect()
-    {
-        QNetworkAccessManager manager;
-        QNetworkRequest request(QUrl(BaseUrl + "/member/exists"));
-        request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
-        QJsonObject json;
-        json["member_id"] = "test_connection";
-
-        QNetworkReply* reply = manager.post(request, QJsonDocument(json).toJson());
-
-        QEventLoop loop;
-        QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-        loop.exec();
-
-        if (reply->error() != QNetworkReply::NoError)
-        {
-            qDebug() << "서버 연결 실패:" << reply->errorString();
-            reply->deleteLater();
-            return false;
-        }
-
-        qDebug() << "서버 연결 성공";
-        reply->deleteLater();
-        return true;
-    }
-
-    bool db_Connector::MemberExists()
-    {
-        QNetworkAccessManager manager;
-        QNetworkRequest request(QUrl(BaseUrl + "/member/exists"));
-        request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
-        QJsonObject json;
-        json["member_id"] = MemberID;
-
-        QNetworkReply* reply = manager.post(request, QJsonDocument(json).toJson());
-
-        QEventLoop loop;
-        QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-        loop.exec();
-
-        if (reply->error() != QNetworkReply::NoError)
-        {
-            qDebug() << "회원 존재 확인 실패:" << reply->errorString();
-            reply->deleteLater();
-            return false;
-        }
-
-        QByteArray responseData = reply->readAll();
-        reply->deleteLater();
-
-        QJsonDocument doc = QJsonDocument::fromJson(responseData);
-        QJsonObject obj = doc.object();
-
-        return obj["exists"].toBool();
-    }
-
-    void db_Connector::InsertMemberID()
-    {
-        QNetworkAccessManager manager;
-        QNetworkRequest request(QUrl(BaseUrl + "/member/create"));
-        request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
-        QJsonObject json;
-        json["member_id"] = MemberID;
-
-        QNetworkReply* reply = manager.post(request, QJsonDocument(json).toJson());
-
-        QEventLoop loop;
-        QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-        loop.exec();
-
-        if (reply->error() != QNetworkReply::NoError)
-        {
-            qDebug() << "회원 생성 실패:" << reply->errorString();
-        }
-        else
-        {
-            qDebug() << "회원 생성 성공";
-        }
-
-        reply->deleteLater();
-    }
-
-    bool db_Connector::SaveRecord(double runTime, double avgSpeed, double distance, double calorie)
-    {
-        QNetworkAccessManager manager;
-        QNetworkRequest request(QUrl(BaseUrl + "/record/save"));
-        request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
-        QJsonObject json;
-        json["member_id"] = MemberID;
-        json["run_time"] = runTime;
-        json["avg_speed"] = avgSpeed;
-        json["distance"] = distance;
-        json["calorie"] = calorie;
-
-        QNetworkReply* reply = manager.post(request, QJsonDocument(json).toJson());
-
-        QEventLoop loop;
-        QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-        loop.exec();
-
-        if (reply->error() != QNetworkReply::NoError)
-        {
-            qDebug() << "기록 저장 실패:" << reply->errorString();
-            reply->deleteLater();
-            return false;
-        }
-
-        QByteArray responseData = reply->readAll();
-        reply->deleteLater();
-
-        QJsonDocument doc = QJsonDocument::fromJson(responseData);
-        QJsonObject obj = doc.object();
-
-        return obj["success"].toBool();
-    }
-
-    void db_Connector::InquiryRecord(QTableWidget& RecordTable, QString StartDate, QString EndDate)
-    {
-        RecordTable.setRowCount(0);
-
-        QNetworkAccessManager manager;
-        QNetworkRequest request(QUrl(BaseUrl + "/record/inquiry"));
-        request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
-        QJsonObject json;
-        json["member_id"] = MemberID;
-        json["start_date"] = StartDate;
-        json["end_date"] = EndDate;
-
-        QNetworkReply* reply = manager.post(request, QJsonDocument(json).toJson());
-
-        QEventLoop loop;
-        QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-        loop.exec();
-
-        if (reply->error() != QNetworkReply::NoError)
-        {
-            qDebug() << "기록 조회 실패:" << reply->errorString();
-            reply->deleteLater();
-            return;
-        }
-
-        QByteArray responseData = reply->readAll();
-        reply->deleteLater();
-
-        QJsonDocument doc = QJsonDocument::fromJson(responseData);
-        QJsonObject obj = doc.object();
-
-        if (!obj["success"].toBool())
-        {
-            qDebug() << "서버 응답 실패";
-            return;
-        }
-
-        QJsonArray records = obj["records"].toArray();
-
-        for (int row = 0; row < records.size(); ++row)
-        {
-            QJsonObject record = records[row].toObject();
-
-            RecordTable.insertRow(row);
-            RecordTable.setItem(row, 0, new QTableWidgetItem(record["record_date"].toString()));
-            RecordTable.setItem(row, 1, new QTableWidgetItem(record["run_time"].toString()));
-            RecordTable.setItem(row, 2, new QTableWidgetItem(QString::number(record["avg_speed"].toDouble(), 'f', 1)));
-            RecordTable.setItem(row, 3, new QTableWidgetItem(QString::number(record["distance"].toDouble(), 'f', 3)));
-            RecordTable.setItem(row, 4, new QTableWidgetItem(QString::number(record["calorie"].toDouble(), 'f', 1)));
-        }
-    }
-    ```
-
-12. `Cloudflare Quick Tunnel` 방식으로 외부에서 접속 가능한 주소 만들기. 새로운 cmd창에 다음과 같이 입력한다.
-    - `앞서 RunRecordServer의 폴더에서 가상환경을 만들어서 app.py를 실행한 상태를 계속 유지하고 실행해야한다. 그렇지 않으면 외부접속가능 주소를 만들지 못한다.`
-    ```cmd
-    winget install --id Cloudflare.cloudflared   // cloudflared 설치
-
-    cloudflared --version  // 버전 확인
-
-    cloudflared tunnel --url http://localhost:8000 --protocol http2  // 내 포트 8000과 연결된 외부에서 접속 가능한 주소 만들기
-    ```
-    ![alt text](image.png)
-
-
-13. db_connector.h 의 BaseUrl의 변수를 변경하기
-    - `앞서 생성한 외부접속가능 주소를 BaseUrl의 변수에 넣어준다.`
-    ![alt text](image-1.png)
-
-14. 여기까지 완료됐다면 다른 사람이 자신의 컴퓨터에서 프로그램을 실행하면 id생성, 기록저장, 기록 조회가 가능한 상태이다. 따라서 이제부터는 배포 준비를 한다.
-
-15. Qt에서 프로젝트를 빌드한다. 
-
-16. 빌드가 완료되면 `프로젝트 폴더` -> `build폴더` -> `Desktop_Qt_6_11_0_MinGW_64_bit-Debug` 안에 있는 exe파일을 찾는다.
-
-17. 바탕화면이나 원하는 곳에 배포할 폴더를 아무거나 만들어서 exe파일을 복사해서 붙여넣는다.
-
-18. exe파일만으로는 작동하지 않으므로 exe파일 작동에 필요한 dll파일등등을 모아와야한다.
-    - 쉽게 모으는 방법이 있다.
-        - `일반 cmd창이 아니라 qt전용 cmd창을 열어야한다.` (시작메뉴에서 qt만 검색해도 qt cmd가 보일것이다.)
-
-19. `qt전용 cmd 창을 켠 상태`에서 배포용 폴더의 주소로 이동한다. 
-    ```cmd
-    cd C:\Users\User\Desktop\RunningMachine  // 이런식으로 사용해서 이동한다.
-    ```
-
-20. 다음과 같이 `exe프로그램명`을 입력하여 필요한 파일들을 모아준다.
-    ```cmd
-    windeployqt MiniProject1.exe   
-    ```
-
-21. 배포용 폴더 자체를 압축하고 전달한다. 사용자들은 exe파일만 실행하면 된다.
-
-22. 이 프로그램이 제대로 작동하기 위해서 지켜져야할 조건 
-    - 1. 서버가 되는 컴퓨터에서는 반드시 `가상환경에서 app.py` 가 실행되어 있어야한다. 절대 꺼지면 안된다.
-    - 2. 서버가 되는 컴퓨터에서는 반드시 `외부접속가능 주소` cmd가 꺼져서는 안된다. 이 cmd가 꺼지면 이 주소는 사라져버려 사용못한다.
-        - 참고로 이 방식으로 하면 컴퓨터를 껐다켜서 외부 주소를 얻을때마다 헤더파일의 변수를 변경해줘야한다.
-        - 따라서 계속 새로 다른사람들한테 배포해야한다.
+    cursor = conn.cursor()
+    cursor.execute("SET time_zone = '+09:00'")
+    cursor.close()
+
+    return conn
+~~~
+
+#### API 엔드포인트
+
+| Endpoint | Method | 역할 |
+|---|---|---|
+| /member/exists | POST | 회원 ID가 이미 존재하는지 확인합니다. |
+| /member/check_password | POST | 입력한 비밀번호가 DB의 비밀번호와 일치하는지 확인합니다. |
+| /member/create | POST | 새 회원을 생성합니다. |
+| /record/save | POST | 운동 종료 후 결과를 저장합니다. |
+| /record/inquiry | POST | 날짜 범위에 해당하는 운동 기록을 조회합니다. |
+
+기록 저장 요청은 다음과 같은 데이터를 사용합니다.
+
+~~~json
+{
+  "member_id": "abc123",
+  "run_time": 120.0,
+  "avg_speed": 8.5,
+  "distance": 0.283,
+  "calorie": 15.2
+}
+~~~
+
+기록 조회는 start_date와 end_date를 받아 하루 전체 범위로 확장해 조회합니다.
+
+~~~python
+start_datetime = data["start_date"] + " 00:00:00"
+end_datetime = data["end_date"] + " 23:59:59"
+~~~
+
+조회 결과의 운동 시간은 초 단위 값이기 때문에, 화면에 표시하기 쉽도록 HH:MM:SS 문자열로 변환해서 반환했습니다.
+
+---
+
+### 4. Cloudflare Quick Tunnel
+
+Flask 서버는 내 컴퓨터에서 실행됩니다. 같은 컴퓨터에서만 테스트한다면 http://localhost:8000 주소로 접근하면 됩니다. 하지만 다른 컴퓨터에서 실행한 Qt 앱이 이 서버에 접근하려면 외부에서 들어올 수 있는 주소가 필요합니다.
+
+이때 사용한 것이 Cloudflare Quick Tunnel입니다.
+
+#### Cloudflare Quick Tunnel이란
+
+Cloudflare Tunnel은 로컬에서 실행 중인 서버를 외부에서 접근 가능한 주소와 연결해주는 기능입니다. Quick Tunnel은 별도의 도메인 설정 없이 trycloudflare.com 형태의 임시 HTTPS 주소를 발급받아 사용할 수 있는 방식입니다.
+
+일반적으로 localhost는 내 컴퓨터 안에서만 접근할 수 있습니다. Cloudflare Quick Tunnel을 실행하면 외부 HTTPS 요청이 Cloudflare 주소로 들어오고, cloudflared가 그 요청을 내 컴퓨터의 localhost:8000으로 전달합니다.
+
+~~~mermaid
+flowchart LR
+    Other[다른 컴퓨터의 Qt 앱] -->|HTTPS 요청| CF[trycloudflare.com]
+    CF --> Tunnel[cloudflared]
+    Tunnel --> Flask[localhost:8000 Flask 서버]
+    Flask --> DB[(MySQL)]
+~~~
+
+#### 왜 사용했는가
+
+이 프로젝트에서는 Flask 서버를 정식 서버에 배포하지 않고 로컬에서 실행했습니다. 그래도 다른 컴퓨터에서 실행한 Qt 클라이언트가 같은 서버에 요청을 보내고, 같은 DB에 기록을 저장·조회하는 흐름을 확인하고 싶었습니다.
+
+Quick Tunnel을 사용하면 다음 흐름을 만들 수 있습니다.
+
+1. 내 컴퓨터에서 Flask 서버를 8000번 포트로 실행합니다.
+2. cloudflared가 localhost:8000을 외부 HTTPS 주소와 연결합니다.
+3. Qt 앱의 BaseUrl을 trycloudflare.com 주소로 설정합니다.
+4. 다른 컴퓨터에서 실행한 Qt 앱도 같은 Flask API로 요청을 보냅니다.
+5. Flask 서버가 MySQL에 운동 기록을 저장하거나 조회합니다.
+
+#### 적용 방법
+
+Flask 서버를 실행한 뒤 다음 명령을 실행했습니다.
+
+~~~bash
+cloudflared tunnel --url http://localhost:8000 --protocol http2
+~~~
+
+명령을 실행하면 trycloudflare.com 형태의 임시 주소가 발급됩니다.
+
+![Cloudflare Quick Tunnel 실행 예시](image.png)
+
+발급된 주소는 Qt 클라이언트의 BaseUrl에 넣었습니다.
+
+![Qt BaseUrl 설정 예시](image-1.png)
+
+Quick Tunnel 주소는 임시 주소이기 때문에 터널을 다시 실행하면 주소가 바뀔 수 있습니다. 그래서 다시 실행할 때는 새 주소를 BaseUrl에도 반영해야 합니다.
+
+---
+
+### 5. Qt 클라이언트와 서버 연결
+
+Qt 클라이언트에서는 db_Connector가 서버 요청을 담당합니다. BaseUrl에는 Cloudflare Quick Tunnel로 발급받은 주소를 넣고, 기능에 맞는 API 경로를 붙여 요청합니다.
+
+~~~cpp
+QString BaseUrl = "https://ide-alot-neighbors-freely.trycloudflare.com";
+~~~
+
+회원 확인 요청 예시는 다음과 같습니다.
+
+~~~cpp
+QNetworkRequest request(QUrl(BaseUrl + "/member/exists"));
+request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+QJsonObject json;
+json["member_id"] = MemberID;
+
+QNetworkReply* reply = manager.post(request, QJsonDocument(json).toJson());
+~~~
+
+서버 응답은 QJsonDocument로 파싱합니다. 기록 조회처럼 여러 개의 결과가 오는 경우에는 records 배열을 읽어서 QTableWidget에 행 단위로 추가합니다.
+
+---
+
+## 데이터 흐름
+
+사용자가 운동을 시작하고 기록을 저장한 뒤 다시 조회하는 과정은 다음 순서로 이어집니다.
+
+~~~mermaid
+sequenceDiagram
+    participant User as 사용자
+    participant Qt as Qt/C++ 앱
+    participant API as Flask API
+    participant DB as MySQL
+
+    User->>Qt: ID/PW 입력
+    Qt->>API: /member/exists 요청
+    API->>DB: Member 조회
+    DB-->>API: 조회 결과
+    API-->>Qt: exists 반환
+
+    User->>Qt: 운동 시작
+    Qt->>Qt: QTimer 기반 실시간 계산
+    User->>Qt: 운동 종료 후 저장 선택
+    Qt->>API: /record/save 요청
+    API->>DB: RunningRecord INSERT
+    DB-->>API: 저장 완료
+    API-->>Qt: success 반환
+
+    User->>Qt: 날짜 범위 조회
+    Qt->>API: /record/inquiry 요청
+    API->>DB: RunningRecord SELECT
+    DB-->>API: 기록 목록
+    API-->>Qt: records 반환
+    Qt-->>User: QTableWidget에 표시
+~~~
+
+---
+
+## 실행 방법
+
+전체 기능을 확인하려면 MySQL, Flask 서버, Cloudflare 터널, Qt 클라이언트가 함께 준비되어야 합니다.
+
+### 1. MySQL 실행
+
+RunRecordDB 데이터베이스와 Member, RunningRecord 테이블이 필요합니다.
+
+### 2. Flask 서버 실행
+
+~~~bash
+cd RunRecordServer
+venv\Scripts\activate
+python app.py
+~~~
+
+서버는 0.0.0.0:8000으로 실행됩니다.
+
+### 3. Cloudflare 터널 실행
+
+~~~bash
+cloudflared tunnel --url http://localhost:8000 --protocol http2
+~~~
+
+터널 주소가 발급되면 trycloudflare.com 주소를 확인합니다.
+
+### 4. Qt BaseUrl 갱신
+
+Qt 클라이언트의 BaseUrl을 현재 터널 주소로 바꿉니다.
+
+### 5. Qt 클라이언트 실행
+
+Qt Creator에서 실행하거나 빌드된 실행 파일을 실행합니다. 실행 파일 배포 시에는 windeployqt로 필요한 DLL과 플러그인을 함께 모읍니다.
+
+~~~bash
+windeployqt MiniProject1.exe
+~~~
+
+---
+
+## 확인한 기능
+
+| 확인 항목 | 내용 |
+|---|---|
+| 회원 확인 | 존재하는 ID와 존재하지 않는 ID를 구분합니다. |
+| 비밀번호 확인 | 기존 회원의 비밀번호 일치 여부를 확인합니다. |
+| 회원 생성 | 존재하지 않는 ID로 새 회원을 생성합니다. |
+| 운동 실행 | QTimer를 기준으로 운동 시간이 증가하고 거리, 칼로리가 갱신됩니다. |
+| 속도 조절 | 4/8/12 km/h 버튼과 증감 버튼으로 속도를 변경합니다. |
+| 기록 저장 | 운동 결과가 Flask API를 통해 MySQL에 저장됩니다. |
+| 기록 조회 | 날짜 범위에 맞는 기록을 조회하고 테이블에 표시합니다. |
+| 터널 연결 | trycloudflare.com 주소를 통해 로컬 Flask 서버에 접근합니다. |
+
+---
+
+## 폴더 구조
+
+~~~text
+MiniProject_RunningMachine
+├─ MiniProject1
+│  ├─ main.cpp
+│  ├─ mainwindow.h / mainwindow.cpp / mainwindow.ui
+│  ├─ Calculator.h / Calculator.cpp
+│  ├─ timecalculator.*
+│  ├─ speedcalculator.*
+│  ├─ distancecalculator.*
+│  ├─ caloriecalculator.*
+│  ├─ db_connector.h / db_connector.cpp
+│  ├─ resources.qrc
+│  └─ images
+│     └─ Toko_Run.png
+├─ RunRecordServer
+│  ├─ app.py
+│  └─ config.py
+├─ QuerryFolder
+│  ├─ Create_User.sql
+│  └─ User_Script.sql
+├─ image.png
+├─ image-1.png
+└─ README5.md
+~~~
+
+---
+
+## 현재 한계와 다음 수정 방향
+
+| 현재 상태 | 수정 방향 |
+|---|---|
+| Quick Tunnel 주소가 실행할 때마다 바뀔 수 있음 | 고정 도메인 또는 정식 서버 배포 방식으로 변경합니다. |
+| BaseUrl이 코드에 직접 들어가 있음 | 설정 파일이나 환경 변수로 분리합니다. |
+| config.py에 DB 접속 정보가 들어감 | config.example.py와 .env 구조로 정리합니다. |
+| Qt 네트워크 요청 흐름이 단순 동기 처리에 가까움 | 비동기 Signal/Slot 구조로 개선합니다. |
+| 자동화 테스트가 부족함 | 계산 모듈 단위 테스트와 API mock 테스트를 추가합니다. |
+| 서버 오류 응답이 화면별로 세분화되어 있지 않음 | API 오류 메시지와 클라이언트 표시 방식을 정리합니다. |
+
+---
+
+## 정리
+
+RunningMachine은 Qt/C++ 데스크톱 앱에서 출발해, 운동 기록을 저장하고 다시 조회할 수 있도록 서버와 데이터베이스를 연결한 프로젝트입니다.
+
+전체 구조는 다음처럼 정리할 수 있습니다.
+
+- Qt/C++ 클라이언트는 화면, 입력, 실시간 운동 계산을 담당합니다.
+- MySQL은 회원 정보와 운동 기록을 저장합니다.
+- Flask API 서버는 Qt 클라이언트와 MySQL 사이에서 요청을 처리합니다.
+- Cloudflare Quick Tunnel은 로컬 Flask 서버를 외부 HTTPS 주소와 연결합니다.
+- Qt의 db_Connector는 BaseUrl을 기준으로 서버 API를 호출하고 응답을 화면에 반영합니다.

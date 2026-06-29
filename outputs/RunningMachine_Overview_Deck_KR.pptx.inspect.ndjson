@@ -1,0 +1,372 @@
+{"kind":"deck","id":"pr/5xhmq3","name":"Deck"}
+{"kind":"layout","layoutId":"f278b6f7-2828-4379-a985-5aa1f8dfea7b","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"1b695ce8-6f84-49f4-85b1-35720fe3ae0c","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/9l0p31","slide":1,"title":"RunningMachine","textShapes":9}
+{"kind":"textbox","id":"sh/hoza1gvy","slide":1,"text":"RunningMachine","textPreview":"RunningMachine","textChars":14,"textLines":1,"bbox":[76,92,720,76]}
+{"kind":"textbox","id":"sh/a1gvy90j","slide":1,"text":"Qt/C++ 러닝머신 운동 기록 시뮬레이터","textPreview":"Qt/C++ 러닝머신 운동 기록 시뮬레이터","textChars":23,"textLines":1,"bbox":[80,178,760,42]}
+{"kind":"textbox","id":"sh/zidonyd0","slide":1,"text":"실시간 운동 계산, 사용자별 기록 저장, 날짜 범위 기록 조회를 Qt 클라이언트와 Flask API, MySQL, Cloudflare Quick Tunnel로 연결했습니다.","textPreview":"실시간 운동 계산, 사용자별 기록 저장, 날짜 범위 기록 조회를 Qt 클라이언트와 Flask API, MySQL, Cloudflare Quick Tunnel로 연결했습니다.","textChars":96,"textLines":1,"bbox":[82,248,830,72]}
+{"kind":"shape","id":"sh/svu9knih","slide":1,"bbox":[82,352,128,32]}
+{"kind":"textbox","id":"sh/hgn29gr2","slide":1,"text":"Qt/C++","textPreview":"Qt/C++","textChars":6,"textLines":1,"bbox":[82,352,128,32]}
+{"kind":"shape","id":"sh/ap4r65wj","slide":1,"bbox":[228,352,128,32]}
+{"kind":"textbox","id":"sh/za1gvy90","slide":1,"text":"QTimer","textPreview":"QTimer","textChars":6,"textLines":1,"bbox":[228,352,128,32]}
+{"kind":"shape","id":"sh/sji5snel","slide":1,"bbox":[374,352,128,32]}
+{"kind":"textbox","id":"sh/h4byhgn2","slide":1,"text":"MySQL","textPreview":"MySQL","textChars":5,"textLines":1,"bbox":[374,352,128,32]}
+{"kind":"shape","id":"sh/p4r65wju","slide":1,"bbox":[520,352,128,32]}
+{"kind":"textbox","id":"sh/wjudg7ad","slide":1,"text":"Flask API","textPreview":"Flask API","textChars":9,"textLines":1,"bbox":[520,352,128,32]}
+{"kind":"shape","id":"sh/7y1kre1w","slide":1,"bbox":[666,352,128,32]}
+{"kind":"textbox","id":"sh/ed8v6psf","slide":1,"text":"Cloudflare Tunnel","textPreview":"Cloudflare Tunnel","textChars":17,"textLines":1,"bbox":[666,352,128,32]}
+{"kind":"textbox","id":"sh/0bi9s36h","slide":1,"text":"Project Overview Deck","textPreview":"Project Overview Deck","textChars":21,"textLines":1,"bbox":[84,635,260,26]}
+{"kind":"image","id":"im/qpg3ex0n","slide":1,"name":"","alt":"Toko_Run.png","bbox":[905,120,250,145]}
+{"kind":"notes","id":"nt/9l0p31","slide":1,"text":""}
+{"kind":"slide","id":"sl/5hntv7","slide":2,"title":"02","textShapes":17}
+{"kind":"shape","id":"sh/6dcbulwv","slide":2,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/d4vmtwra","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/oj2t83it","slide":2,"text":"개요","textPreview":"개요","textChars":2,"textLines":1,"bbox":[124,26,900,54]}
+{"kind":"textbox","id":"sh/vmtwra5g","slide":2,"text":"프로그램이 무엇을 하는지 먼저 정리했습니다","textPreview":"프로그램이 무엇을 하는지 먼저 정리했습니다","textChars":23,"textLines":1,"bbox":[132,80,900,28]}
+{"kind":"shape","id":"sh/61032lsz","slide":2,"bbox":[58,114,1164,1]}
+{"kind":"shape","id":"sh/dsji5sne","slide":2,"bbox":[80,155,340,160]}
+{"kind":"textbox","id":"sh/o7qpg3ex","slide":2,"text":"무엇을 만들었나","textPreview":"무엇을 만들었나","textChars":8,"textLines":1,"bbox":[96,169,308,30]}
+{"kind":"textbox","id":"sh/vahoza1g","slide":2,"text":"러닝머신 운동 중 시간, 속도, 거리, 칼로리를 실시간으로 계산하고 화면에 표시하는 Qt 데스크톱 앱입니다.","textPreview":"러닝머신 운동 중 시간, 속도, 거리, 칼로리를 실시간으로 계산하고 화면에 표시하는 Qt 데스크톱 앱입니다.","textChars":60,"textLines":1,"bbox":[96,207,308,96]}
+{"kind":"shape","id":"sh/6tovahoz","slide":2,"bbox":[470,155,340,160]}
+{"kind":"textbox","id":"sh/c3ylc7u5","slide":2,"text":"왜 확장했나","textPreview":"왜 확장했나","textChars":6,"textLines":1,"bbox":[486,169,308,30]}
+{"kind":"textbox","id":"sh/1kre1w7m","slide":2,"text":"운동 종료 후 결과가 사라지지 않도록 사용자별 운동 기록을 저장하고 다시 조회하는 기능을 추가했습니다.","textPreview":"운동 종료 후 결과가 사라지지 않도록 사용자별 운동 기록을 저장하고 다시 조회하는 기능을 추가했습니다.","textChars":57,"textLines":1,"bbox":[486,207,308,96]}
+{"kind":"shape","id":"sh/uxc3ylc7","slide":2,"bbox":[860,155,340,160]}
+{"kind":"textbox","id":"sh/ji5snelo","slide":2,"text":"어떻게 연결했나","textPreview":"어떻게 연결했나","textChars":8,"textLines":1,"bbox":[876,169,308,30]}
+{"kind":"textbox","id":"sh/crmhk3q5","slide":2,"text":"Qt 앱이 Flask API로 JSON 요청을 보내고, Flask 서버가 MySQL에 저장·조회 작업을 수행합니다.","textPreview":"Qt 앱이 Flask API로 JSON 요청을 보내고, Flask 서버가 MySQL에 저장·조회 작업을 수행합니다.","textChars":64,"textLines":1,"bbox":[876,207,308,96]}
+{"kind":"textbox","id":"sh/1cfa9w3m","slide":2,"text":"•","textPreview":"•","textChars":1,"textLines":1,"bbox":[115,420,28,30]}
+{"kind":"textbox","id":"sh/ulwval87","slide":2,"text":"처음에는 클라이언트 내부 계산과 화면 표시를 구현했습니다.","textPreview":"처음에는 클라이언트 내부 계산과 화면 표시를 구현했습니다.","textChars":32,"textLines":1,"bbox":[149,420,966,34]}
+{"kind":"textbox","id":"sh/j6tovaho","slide":2,"text":"•","textPreview":"•","textChars":1,"textLines":1,"bbox":[115,474,28,30]}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":2,"text":"기록 저장이 필요해지면서 MySQL 테이블을 설계했습니다.","textPreview":"기록 저장이 필요해지면서 MySQL 테이블을 설계했습니다.","textChars":32,"textLines":1,"bbox":[149,474,966,34]}
+{"kind":"textbox","id":"sh/18jqh0fe","slide":2,"text":"•","textPreview":"•","textChars":1,"textLines":1,"bbox":[115,528,28,30]}
+{"kind":"textbox","id":"sh/1032lszq","slide":2,"text":"DB 직접 연결 대신 Flask API 서버를 두고, 외부 접속에는 Cloudflare Quick Tunnel을 사용했습니다.","textPreview":"DB 직접 연결 대신 Flask API 서버를 두고, 외부 접속에는 Cloudflare Quick Tunnel을 사용했습니다.","textChars":70,"textLines":1,"bbox":[149,528,966,34]}
+{"kind":"textbox","id":"sh/cfa9w3m9","slide":2,"text":"RunningMachine","textPreview":"RunningMachine","textChars":14,"textLines":1,"bbox":[58,682,220,22]}
+{"kind":"textbox","id":"sh/judg7ads","slide":2,"text":"2 / 17","textPreview":"2 / 17","textChars":6,"textLines":1,"bbox":[1160,682,64,22]}
+{"kind":"notes","id":"nt/5hntv7","slide":2,"text":""}
+{"kind":"slide","id":"sl/j04ts0","slide":3,"title":"03","textShapes":17}
+{"kind":"shape","id":"sh/x0nuxc3y","slide":3,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/m94fu18j","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/fu18jqh0","slide":3,"text":"사용 기술 한눈에","textPreview":"사용 기술 한눈에","textChars":9,"textLines":1,"bbox":[124,26,900,54]}
+{"kind":"textbox","id":"sh/83itgfml","slide":3,"text":"각 기술이 맡은 역할을 먼저 정리했습니다","textPreview":"각 기술이 맡은 역할을 먼저 정리했습니다","textChars":22,"textLines":1,"bbox":[132,80,900,28]}
+{"kind":"shape","id":"sh/xobm58z2","slide":3,"bbox":[58,114,1164,1]}
+{"kind":"shape","id":"sh/qxs72x4n","slide":3,"bbox":[95,150,500,92]}
+{"kind":"textbox","id":"sh/fil0rqd4","slide":3,"text":"Qt/C++","textPreview":"Qt/C++","textChars":6,"textLines":1,"bbox":[115,168,150,28]}
+{"kind":"textbox","id":"sh/4zidonyd","slide":3,"text":"화면 구성, 버튼 이벤트, 실시간 상태 표시","textPreview":"화면 구성, 버튼 이벤트, 실시간 상태 표시","textChars":24,"textLines":1,"bbox":[285,168,280,44]}
+{"kind":"shape","id":"sh/xkf6dcbu","slide":3,"bbox":[660,150,500,92]}
+{"kind":"textbox","id":"sh/1kre1w7m","slide":3,"text":"QTimer","textPreview":"QTimer","textChars":6,"textLines":1,"bbox":[680,168,150,28]}
+{"kind":"textbox","id":"sh/c3ylc7u5","slide":3,"text":"운동 시간, 거리, 칼로리 주기적 갱신","textPreview":"운동 시간, 거리, 칼로리 주기적 갱신","textChars":21,"textLines":1,"bbox":[850,168,280,44]}
+{"kind":"shape","id":"sh/ji5snelo","slide":3,"bbox":[95,282,500,92]}
+{"kind":"textbox","id":"sh/uxc3ylc7","slide":3,"text":"MySQL","textPreview":"MySQL","textChars":5,"textLines":1,"bbox":[115,300,150,28]}
+{"kind":"textbox","id":"sh/1cfa9w3m","slide":3,"text":"회원 정보와 운동 기록 저장","textPreview":"회원 정보와 운동 기록 저장","textChars":15,"textLines":1,"bbox":[285,300,280,44]}
+{"kind":"shape","id":"sh/crmhk3q5","slide":3,"bbox":[660,282,500,92]}
+{"kind":"textbox","id":"sh/j6tovaho","slide":3,"text":"Flask","textPreview":"Flask","textChars":5,"textLines":1,"bbox":[680,300,150,28]}
+{"kind":"textbox","id":"sh/ulwval87","slide":3,"text":"Qt 요청을 받아 DB 작업 처리","textPreview":"Qt 요청을 받아 DB 작업 처리","textChars":18,"textLines":1,"bbox":[850,300,280,44]}
+{"kind":"shape","id":"sh/18jqh0fe","slide":3,"bbox":[95,414,500,92]}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":3,"text":"Cloudflare","textPreview":"Cloudflare","textChars":10,"textLines":1,"bbox":[115,432,150,28]}
+{"kind":"textbox","id":"sh/oj2t83it","slide":3,"text":"로컬 Flask 서버를 외부 HTTPS 주소와 연결","textPreview":"로컬 Flask 서버를 외부 HTTPS 주소와 연결","textChars":28,"textLines":1,"bbox":[285,432,280,44]}
+{"kind":"shape","id":"sh/d4vmtwra","slide":3,"bbox":[660,414,500,92]}
+{"kind":"textbox","id":"sh/6dcbulwv","slide":3,"text":"windeployqt","textPreview":"windeployqt","textChars":11,"textLines":1,"bbox":[680,432,150,28]}
+{"kind":"textbox","id":"sh/vy90je9c","slide":3,"text":"Qt 실행 파일 배포에 필요한 의존성 수집","textPreview":"Qt 실행 파일 배포에 필요한 의존성 수집","textChars":23,"textLines":1,"bbox":[850,432,280,44]}
+{"kind":"textbox","id":"sh/o7qpg3ex","slide":3,"text":"RunningMachine","textPreview":"RunningMachine","textChars":14,"textLines":1,"bbox":[58,682,220,22]}
+{"kind":"textbox","id":"sh/dsji5sne","slide":3,"text":"3 / 17","textPreview":"3 / 17","textChars":6,"textLines":1,"bbox":[1160,682,64,22]}
+{"kind":"notes","id":"nt/j04ts0","slide":3,"text":""}
+{"kind":"slide","id":"sl/2k9c1n","slide":4,"title":"04","textShapes":15}
+{"kind":"shape","id":"sh/a9w3m94f","slide":4,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/h0fepkzu","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/sfil0rqd","slide":4,"text":"전체 구조","textPreview":"전체 구조","textChars":5,"textLines":1,"bbox":[124,26,900,54]}
+{"kind":"textbox","id":"sh/z61032ls","slide":4,"text":"계산은 클라이언트에서, 저장과 조회는 서버와 DB에서 처리합니다","textPreview":"계산은 클라이언트에서, 저장과 조회는 서버와 DB에서 처리합니다","textChars":35,"textLines":1,"bbox":[132,80,900,28]}
+{"kind":"shape","id":"sh/al87ed8b","slide":4,"bbox":[58,114,1164,1]}
+{"kind":"shape","id":"sh/hcrmhk3q","slide":4,"bbox":[250,312,140,1]}
+{"kind":"shape","id":"sh/orytsvu9","slide":4,"bbox":[555,312,140,1]}
+{"kind":"shape","id":"sh/zed8v6ps","slide":4,"bbox":[860,312,140,1]}
+{"kind":"shape","id":"sh/6xkf6dcb","slide":4,"bbox":[70,225,180,170]}
+{"kind":"textbox","id":"sh/8z25kb6x","slide":4,"text":"사용자","textPreview":"사용자","textChars":3,"textLines":1,"bbox":[100,258,120,34]}
+{"kind":"textbox","id":"sh/1gvy90je","slide":4,"text":"로그인\n운동 시작\n기록 조회","textPreview":"로그인 | 운동 시작 | 기록 조회","textChars":15,"textLines":3,"bbox":[100,306,120,76]}
+{"kind":"shape","id":"sh/qtcj6tov","slide":4,"bbox":[390,200,165,220]}
+{"kind":"textbox","id":"sh/je9cvixc","slide":4,"text":"Qt 앱","textPreview":"Qt 앱","textChars":4,"textLines":1,"bbox":[412,228,120,34]}
+{"kind":"textbox","id":"sh/87ed8bat","slide":4,"text":"화면 전환\n실시간 계산\n서버 요청","textPreview":"화면 전환 | 실시간 계산 | 서버 요청","textChars":18,"textLines":3,"bbox":[410,286,125,86]}
+{"kind":"shape","id":"sh/xs72x4na","slide":4,"bbox":[695,225,165,170]}
+{"kind":"textbox","id":"sh/q1orytsv","slide":4,"text":"Tunnel","textPreview":"Tunnel","textChars":6,"textLines":1,"bbox":[715,258,125,34]}
+{"kind":"textbox","id":"sh/fmlkjm1c","slide":4,"text":"외부 HTTPS\n주소 연결","textPreview":"외부 HTTPS | 주소 연결","textChars":14,"textLines":2,"bbox":[715,312,125,54]}
+{"kind":"shape","id":"sh/8jqh0fep","slide":4,"bbox":[1000,190,180,250]}
+{"kind":"textbox","id":"sh/x4nap4r6","slide":4,"text":"Flask API","textPreview":"Flask API","textChars":9,"textLines":1,"bbox":[1025,220,130,34]}
+{"kind":"textbox","id":"sh/hgn29gr2","slide":4,"text":"회원 확인\n회원 생성\n기록 저장\n기록 조회","textPreview":"회원 확인 | 회원 생성 | 기록 저장 | 기록 조회","textChars":23,"textLines":4,"bbox":[1028,280,124,110]}
+{"kind":"shape","id":"sh/svu9knih","slide":4,"bbox":[1000,480,180,70]}
+{"kind":"textbox","id":"sh/za1gvy90","slide":4,"text":"MySQL","textPreview":"MySQL","textChars":5,"textLines":1,"bbox":[1014,500,152,30]}
+{"kind":"shape","id":"sh/ap4r65wj","slide":4,"bbox":[1090,440,1,40]}
+{"kind":"textbox","id":"sh/hoza1gvy","slide":4,"text":"전체 구조를 먼저 잡고 나면 각 기술의 역할과 연결 이유가 더 명확해집니다.","textPreview":"전체 구조를 먼저 잡고 나면 각 기술의 역할과 연결 이유가 더 명확해집니다.","textChars":42,"textLines":1,"bbox":[100,590,980,42]}
+{"kind":"textbox","id":"sh/s36hcrmh","slide":4,"text":"RunningMachine","textPreview":"RunningMachine","textChars":14,"textLines":1,"bbox":[58,682,220,22]}
+{"kind":"textbox","id":"sh/zidonyd0","slide":4,"text":"4 / 17","textPreview":"4 / 17","textChars":6,"textLines":1,"bbox":[1160,682,64,22]}
+{"kind":"notes","id":"nt/2k9c1n","slide":4,"text":""}
+{"kind":"slide","id":"sl/dwsx6k","slide":5,"title":"05","textShapes":13}
+{"kind":"shape","id":"sh/p8nqxs72","slide":5,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/ih4byhgn","slide":5,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/72x4nap4","slide":5,"text":"Qt/C++ 클라이언트","textPreview":"Qt/C++ 클라이언트","textChars":12,"textLines":1,"bbox":[124,26,900,54]}
+{"kind":"textbox","id":"sh/0z61032l","slide":5,"text":"사용자가 직접 조작하는 화면과 실시간 계산을 담당합니다","textPreview":"사용자가 직접 조작하는 화면과 실시간 계산을 담당합니다","textChars":30,"textLines":1,"bbox":[132,80,900,28]}
+{"kind":"shape","id":"sh/pkzupwb2","slide":5,"bbox":[58,114,1164,1]}
+{"kind":"shape","id":"sh/itgfmlkj","slide":5,"bbox":[75,150,350,145]}
+{"kind":"textbox","id":"sh/7ed8bat4","slide":5,"text":"화면 구성","textPreview":"화면 구성","textChars":5,"textLines":1,"bbox":[91,164,318,30]}
+{"kind":"textbox","id":"sh/0bi9s36h","slide":5,"text":"QStackedWidget으로 로그인, 메인, 러닝, 결과, 기록 조회 화면을 전환했습니다.","textPreview":"QStackedWidget으로 로그인, 메인, 러닝, 결과, 기록 조회 화면을 전환했습니다.","textChars":51,"textLines":1,"bbox":[91,202,318,81]}
+{"kind":"shape","id":"sh/pwb2hwfy","slide":5,"bbox":[465,150,350,145]}
+{"kind":"textbox","id":"sh/94fu18jq","slide":5,"text":"실시간 갱신","textPreview":"실시간 갱신","textChars":6,"textLines":1,"bbox":[481,164,318,30]}
+{"kind":"textbox","id":"sh/kjm1cfa9","slide":5,"text":"QTimer가 200ms마다 계산 함수를 호출해 시간, 거리, 칼로리를 갱신합니다.","textPreview":"QTimer가 200ms마다 계산 함수를 호출해 시간, 거리, 칼로리를 갱신합니다.","textChars":46,"textLines":1,"bbox":[481,202,318,81]}
+{"kind":"shape","id":"sh/r2p8nqxs","slide":5,"bbox":[855,150,350,145]}
+{"kind":"textbox","id":"sh/2hwfyxob","slide":5,"text":"서버 요청","textPreview":"서버 요청","textChars":5,"textLines":1,"bbox":[871,164,318,30]}
+{"kind":"textbox","id":"sh/9gr2p8nq","slide":5,"text":"db_Connector가 Flask API로 JSON 요청을 보내 저장과 조회 기능을 연결합니다.","textPreview":"db_Connector가 Flask API로 JSON 요청을 보내 저장과 조회 기능을 연결합니다.","textChars":54,"textLines":1,"bbox":[871,202,318,81]}
+{"kind":"shape","id":"sh/gvy90je9","slide":5,"bbox":[95,365,520,220]}
+{"kind":"textbox","id":"sh/ra5gbq1o","slide":5,"text":"void MainWindow::UpdateScreen()\n{\n  for(auto Cal : Calculators)\n    Cal->Calculate(UpdateCycle);\n\n  ui->TimeText->setText(...);\n  ui->DistanceText->setText(...);\n  ui->CalorieText->setText(...);\n}","textPreview":"void MainWindow::UpdateScreen() | { |   for(auto Cal : Calculators) |     Cal->Calculate(UpdateCycle); |  |   ui->TimeText->setText(...);...","textChars":196,"textLines":9,"bbox":[113,381,484,188]}
+{"kind":"textbox","id":"sh/9knih4by","slide":5,"text":"계산 로직은 시간, 속도, 거리, 칼로리 클래스로 나누어 관리했습니다.","textPreview":"계산 로직은 시간, 속도, 거리, 칼로리 클래스로 나누어 관리했습니다.","textChars":39,"textLines":1,"bbox":[700,530,440,42]}
+{"kind":"textbox","id":"sh/kzupwb2h","slide":5,"text":"RunningMachine","textPreview":"RunningMachine","textChars":14,"textLines":1,"bbox":[58,682,220,22]}
+{"kind":"textbox","id":"sh/0nuxc3yl","slide":5,"text":"5 / 17","textPreview":"5 / 17","textChars":6,"textLines":1,"bbox":[1160,682,64,22]}
+{"kind":"image","id":"im/p8nqxs72","slide":5,"name":"","alt":"Toko_Run.png","bbox":[735,400,270,100]}
+{"kind":"notes","id":"nt/dwsx6k","slide":5,"text":""}
+{"kind":"slide","id":"sl/haycje","slide":6,"title":"06","textShapes":10}
+{"kind":"shape","id":"sh/0bi9s36h","slide":6,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/7qpg3ex0","slide":6,"text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/i5sneloj","slide":6,"text":"MySQL 데이터베이스","textPreview":"MySQL 데이터베이스","textChars":12,"textLines":1,"bbox":[124,26,900,54]}
+{"kind":"textbox","id":"sh/p4r65wju","slide":6,"text":"사용자 정보와 운동 기록을 분리해 저장합니다","textPreview":"사용자 정보와 운동 기록을 분리해 저장합니다","textChars":24,"textLines":1,"bbox":[132,80,900,28]}
+{"kind":"shape","id":"sh/wjudg7ad","slide":6,"bbox":[58,114,1164,1]}
+{"kind":"shape","id":"sh/7y1kre1w","slide":6,"bbox":[120,180,360,290]}
+{"kind":"textbox","id":"sh/ed8v6psf","slide":6,"text":"Member","textPreview":"Member","textChars":6,"textLines":1,"bbox":[150,210,300,36]}
+{"kind":"textbox","id":"sh/p8nqxs72","slide":6,"text":"member_id  VARCHAR(10)  PK\npassword   VARCHAR(10)\n\nID/PW 형식 검증 기준 포함","textPreview":"member_id  VARCHAR(10)  PK | password   VARCHAR(10) |  | ID/PW 형식 검증 기준 포함","textChars":68,"textLines":4,"bbox":[150,270,300,120]}
+{"kind":"shape","id":"sh/0nuxc3yl","slide":6,"bbox":[740,150,400,350]}
+{"kind":"textbox","id":"sh/ih4byhgn","slide":6,"text":"RunningRecord","textPreview":"RunningRecord","textChars":13,"textLines":1,"bbox":[770,180,330,36]}
+{"kind":"textbox","id":"sh/72x4nap4","slide":6,"text":"record_id\nmember_id\nrun_time\navg_speed\ndistance\ncalorie\nrecord_date","textPreview":"record_id | member_id | run_time | avg_speed | distance | calorie | record_date","textChars":67,"textLines":7,"bbox":[770,245,310,190]}
+{"kind":"shape","id":"sh/0nuxc3yl","slide":6,"bbox":[480,320,260,1]}
+{"kind":"textbox","id":"sh/p8nqxs72","slide":6,"text":"한 명의 사용자에게 여러 운동 기록이 연결됩니다.","textPreview":"한 명의 사용자에게 여러 운동 기록이 연결됩니다.","textChars":27,"textLines":1,"bbox":[410,560,460,34]}
+{"kind":"textbox","id":"sh/itgfmlkj","slide":6,"text":"RunningMachine","textPreview":"RunningMachine","textChars":14,"textLines":1,"bbox":[58,682,220,22]}
+{"kind":"textbox","id":"sh/7ed8bat4","slide":6,"text":"6 / 17","textPreview":"6 / 17","textChars":6,"textLines":1,"bbox":[1160,682,64,22]}
+{"kind":"notes","id":"nt/haycje","slide":6,"text":""}
+{"kind":"slide","id":"sl/mq44gc","slide":7,"title":"07","textShapes":20}
+{"kind":"shape","id":"sh/25kb6xkf","slide":7,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/9w3m94fu","slide":7,"text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/kb6xkf6d","slide":7,"text":"Flask API 서버","textPreview":"Flask API 서버","textChars":12,"textLines":1,"bbox":[124,26,900,54]}
+{"kind":"textbox","id":"sh/re1w7mp0","slide":7,"text":"Qt 클라이언트와 MySQL 사이에서 요청을 처리합니다","textPreview":"Qt 클라이언트와 MySQL 사이에서 요청을 처리합니다","textChars":30,"textLines":1,"bbox":[132,80,900,28]}
+{"kind":"shape","id":"sh/2t83itgf","slide":7,"bbox":[58,114,1164,1]}
+{"kind":"shape","id":"sh/9knih4by","slide":7,"bbox":[80,150,520,130]}
+{"kind":"textbox","id":"sh/kzupwb2h","slide":7,"text":"왜 서버를 두었나","textPreview":"왜 서버를 두었나","textChars":9,"textLines":1,"bbox":[96,164,488,30]}
+{"kind":"textbox","id":"sh/ra5gbq1o","slide":7,"text":"클라이언트가 DB에 직접 접근하지 않도록 하고, DB 접속 정보와 저장 규칙을 서버에서 관리하기 위해 사용했습니다.","textPreview":"클라이언트가 DB에 직접 접근하지 않도록 하고, DB 접속 정보와 저장 규칙을 서버에서 관리하기 위해 사용했습니다.","textChars":64,"textLines":1,"bbox":[96,202,488,66]}
+{"kind":"shape","id":"sh/2p8nqxs7","slide":7,"bbox":[680,150,520,130]}
+{"kind":"textbox","id":"sh/gvy90je9","slide":7,"text":"어떤 일을 하나","textPreview":"어떤 일을 하나","textChars":8,"textLines":1,"bbox":[696,164,488,30]}
+{"kind":"textbox","id":"sh/9gr2p8nq","slide":7,"text":"회원 확인, 비밀번호 확인, 회원 생성, 운동 기록 저장, 기간별 조회 API를 제공합니다.","textPreview":"회원 확인, 비밀번호 확인, 회원 생성, 운동 기록 저장, 기간별 조회 API를 제공합니다.","textChars":51,"textLines":1,"bbox":[696,202,488,66]}
+{"kind":"shape","id":"sh/2p8nqxs7","slide":7,"bbox":[95,350,520,230]}
+{"kind":"textbox","id":"sh/ra5gbq1o","slide":7,"text":"get_connection()\n  mysql.connector.connect(DB_CONFIG)\n  SET time_zone = '+09:00'\n\n/record/inquiry\n  start_date 00:00:00\n  end_date   23:59:59\n  run_time -> HH:MM:SS","textPreview":"get_connection() |   mysql.connector.connect(DB_CONFIG) |   SET time_zone = '+09:00' |  | /record/inquiry |   start_date 00:00:00 |   end...","textChars":164,"textLines":8,"bbox":[113,366,484,198]}
+{"kind":"shape","id":"sh/kjm1cfa9","slide":7,"bbox":[700,340,380,34]}
+{"kind":"textbox","id":"sh/94fu18jq","slide":7,"text":"/member/exists","textPreview":"/member/exists","textChars":14,"textLines":1,"bbox":[720,344,220,24]}
+{"kind":"textbox","id":"sh/2hwfyxob","slide":7,"text":"POST","textPreview":"POST","textChars":4,"textLines":1,"bbox":[990,344,60,24]}
+{"kind":"shape","id":"sh/r2p8nqxs","slide":7,"bbox":[700,388,380,34]}
+{"kind":"textbox","id":"sh/kb6xkf6d","slide":7,"text":"/member/check_password","textPreview":"/member/check_password","textChars":22,"textLines":1,"bbox":[720,392,220,24]}
+{"kind":"textbox","id":"sh/9w3m94fu","slide":7,"text":"POST","textPreview":"POST","textChars":4,"textLines":1,"bbox":[990,392,60,24]}
+{"kind":"shape","id":"sh/dg7adsji","slide":7,"bbox":[700,436,380,34]}
+{"kind":"textbox","id":"sh/ovahoza1","slide":7,"text":"/member/create","textPreview":"/member/create","textChars":14,"textLines":1,"bbox":[720,440,220,24]}
+{"kind":"textbox","id":"sh/vahoza1g","slide":7,"text":"POST","textPreview":"POST","textChars":4,"textLines":1,"bbox":[990,440,60,24]}
+{"kind":"shape","id":"sh/6tovahoz","slide":7,"bbox":[700,484,380,34]}
+{"kind":"textbox","id":"sh/d8v6psfi","slide":7,"text":"/record/save","textPreview":"/record/save","textChars":12,"textLines":1,"bbox":[720,488,220,24]}
+{"kind":"textbox","id":"sh/onyd0z61","slide":7,"text":"POST","textPreview":"POST","textChars":4,"textLines":1,"bbox":[990,488,60,24]}
+{"kind":"shape","id":"sh/z25kb6xk","slide":7,"bbox":[700,532,380,34]}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":7,"text":"/record/inquiry","textPreview":"/record/inquiry","textChars":15,"textLines":1,"bbox":[720,536,220,24]}
+{"kind":"textbox","id":"sh/d4vmtwra","slide":7,"text":"POST","textPreview":"POST","textChars":4,"textLines":1,"bbox":[990,536,60,24]}
+{"kind":"textbox","id":"sh/oj2t83it","slide":7,"text":"RunningMachine","textPreview":"RunningMachine","textChars":14,"textLines":1,"bbox":[58,682,220,22]}
+{"kind":"textbox","id":"sh/yd0z6103","slide":7,"text":"7 / 17","textPreview":"7 / 17","textChars":6,"textLines":1,"bbox":[1160,682,64,22]}
+{"kind":"notes","id":"nt/mq44gc","slide":7,"text":""}
+{"kind":"slide","id":"sl/gg097z","slide":8,"title":"08","textShapes":16}
+{"kind":"shape","id":"sh/ylc7u54z","slide":8,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/9cvixcze","slide":8,"text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/gr2p8nqx","slide":8,"text":"Cloudflare Quick Tunnel","textPreview":"Cloudflare Quick Tunnel","textChars":23,"textLines":1,"bbox":[124,26,900,54]}
+{"kind":"textbox","id":"sh/nih4byhg","slide":8,"text":"로컬 Flask 서버를 외부 HTTPS 주소로 연결합니다","textPreview":"로컬 Flask 서버를 외부 HTTPS 주소로 연결합니다","textChars":31,"textLines":1,"bbox":[132,80,900,28]}
+{"kind":"shape","id":"sh/yxobm58z","slide":8,"bbox":[58,114,1164,1]}
+{"kind":"shape","id":"sh/5o7qpg3e","slide":8,"bbox":[80,150,350,150]}
+{"kind":"textbox","id":"sh/g3ex0nux","slide":8,"text":"무엇인가","textPreview":"무엇인가","textChars":4,"textLines":1,"bbox":[96,164,318,30]}
+{"kind":"textbox","id":"sh/rmhk3q5o","slide":8,"text":"로컬에서 실행 중인 서버를 trycloudflare.com 임시 주소와 연결해주는 터널 기능입니다.","textPreview":"로컬에서 실행 중인 서버를 trycloudflare.com 임시 주소와 연결해주는 터널 기능입니다.","textChars":55,"textLines":1,"bbox":[96,202,318,86]}
+{"kind":"shape","id":"sh/y1kre1w7","slide":8,"bbox":[465,150,350,150]}
+{"kind":"textbox","id":"sh/kjm1cfa9","slide":8,"text":"왜 사용했나","textPreview":"왜 사용했나","textChars":6,"textLines":1,"bbox":[481,164,318,30]}
+{"kind":"textbox","id":"sh/94fu18jq","slide":8,"text":"Flask 서버를 따로 배포하지 않고도 다른 컴퓨터의 Qt 앱이 같은 API 서버에 접근하는 흐름을 확인하기 위해 사용했습니다.","textPreview":"Flask 서버를 따로 배포하지 않고도 다른 컴퓨터의 Qt 앱이 같은 API 서버에 접근하는 흐름을 확인하기 위해 사용했습니다.","textChars":71,"textLines":1,"bbox":[481,202,318,86]}
+{"kind":"shape","id":"sh/2hwfyxob","slide":8,"bbox":[850,150,350,150]}
+{"kind":"textbox","id":"sh/r2p8nqxs","slide":8,"text":"어떻게 작동하나","textPreview":"어떻게 작동하나","textChars":8,"textLines":1,"bbox":[866,164,318,30]}
+{"kind":"textbox","id":"sh/gvy90je9","slide":8,"text":"외부 HTTPS 요청이 Cloudflare 주소로 들어오면 cloudflared가 localhost:8000으로 전달합니다.","textPreview":"외부 HTTPS 요청이 Cloudflare 주소로 들어오면 cloudflared가 localhost:8000으로 전달합니다.","textChars":69,"textLines":1,"bbox":[866,202,318,86]}
+{"kind":"shape","id":"sh/9gr2p8nq","slide":8,"bbox":[170,420,220,1]}
+{"kind":"shape","id":"sh/2p8nqxs7","slide":8,"bbox":[510,420,220,1]}
+{"kind":"shape","id":"sh/ra5gbq1o","slide":8,"bbox":[850,420,190,1]}
+{"kind":"textbox","id":"sh/kzupwb2h","slide":8,"text":"다른 PC의 Qt 앱","textPreview":"다른 PC의 Qt 앱","textChars":11,"textLines":1,"bbox":[75,395,190,42]}
+{"kind":"textbox","id":"sh/9knih4by","slide":8,"text":"trycloudflare.com","textPreview":"trycloudflare.com","textChars":17,"textLines":1,"bbox":[405,395,190,42]}
+{"kind":"textbox","id":"sh/d8v6psfi","slide":8,"text":"cloudflared","textPreview":"cloudflared","textChars":11,"textLines":1,"bbox":[745,395,150,42]}
+{"kind":"textbox","id":"sh/onyd0z61","slide":8,"text":"Flask :8000","textPreview":"Flask :8000","textChars":11,"textLines":1,"bbox":[1035,395,150,42]}
+{"kind":"shape","id":"sh/z25kb6xk","slide":8,"bbox":[270,540,740,64]}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":8,"text":"cloudflared tunnel --url http://localhost:8000 --protocol http2","textPreview":"cloudflared tunnel --url http://localhost:8000 --protocol http2","textChars":63,"textLines":1,"bbox":[288,556,704,32]}
+{"kind":"textbox","id":"sh/dg7adsji","slide":8,"text":"RunningMachine","textPreview":"RunningMachine","textChars":14,"textLines":1,"bbox":[58,682,220,22]}
+{"kind":"textbox","id":"sh/ovahoza1","slide":8,"text":"8 / 17","textPreview":"8 / 17","textChars":6,"textLines":1,"bbox":[1160,682,64,22]}
+{"kind":"notes","id":"nt/gg097z","slide":8,"text":""}
+{"kind":"slide","id":"sl/15922r","slide":9,"title":"09","textShapes":10}
+{"kind":"shape","id":"sh/5gbq1ory","slide":9,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/upwb2hwf","slide":9,"text":"09","textPreview":"09","textChars":2,"textLines":1,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/nap4r65w","slide":9,"text":"Cloudflare 적용 화면","textPreview":"Cloudflare 적용 화면","textChars":16,"textLines":1,"bbox":[124,26,900,54]}
+{"kind":"textbox","id":"sh/cj6tovah","slide":9,"text":"발급된 주소를 Qt 클라이언트 BaseUrl에 반영했습니다","textPreview":"발급된 주소를 Qt 클라이언트 BaseUrl에 반영했습니다","textChars":32,"textLines":1,"bbox":[132,80,900,28]}
+{"kind":"shape","id":"sh/54zidony","slide":9,"bbox":[58,114,1164,1]}
+{"kind":"shape","id":"sh/cfa9w3m9","slide":9,"bbox":[95,430,460,100]}
+{"kind":"textbox","id":"sh/1032lszq","slide":9,"text":"터널 실행","textPreview":"터널 실행","textChars":5,"textLines":1,"bbox":[111,444,428,30]}
+{"kind":"textbox","id":"sh/xs72x4na","slide":9,"text":"localhost:8000으로 실행 중인 Flask 서버를 trycloudflare.com 주소와 연결했습니다.","textPreview":"localhost:8000으로 실행 중인 Flask 서버를 trycloudflare.com 주소와 연결했습니다.","textChars":62,"textLines":1,"bbox":[111,482,428,36]}
+{"kind":"shape","id":"sh/87ed8bat","slide":9,"bbox":[650,430,460,100]}
+{"kind":"textbox","id":"sh/fmlkjm1c","slide":9,"text":"Qt 설정","textPreview":"Qt 설정","textChars":5,"textLines":1,"bbox":[666,444,428,30]}
+{"kind":"textbox","id":"sh/q1orytsv","slide":9,"text":"발급된 주소를 BaseUrl에 넣고 API 경로를 붙여 요청하도록 구성했습니다.","textPreview":"발급된 주소를 BaseUrl에 넣고 API 경로를 붙여 요청하도록 구성했습니다.","textChars":44,"textLines":1,"bbox":[666,482,428,36]}
+{"kind":"textbox","id":"sh/1gvy90je","slide":9,"text":"Quick Tunnel 주소는 임시 주소라서 다시 실행하면 BaseUrl도 새 주소로 바꿔야 합니다.","textPreview":"Quick Tunnel 주소는 임시 주소라서 다시 실행하면 BaseUrl도 새 주소로 바꿔야 합니다.","textChars":56,"textLines":1,"bbox":[100,590,920,34]}
+{"kind":"textbox","id":"sh/8z25kb6x","slide":9,"text":"RunningMachine","textPreview":"RunningMachine","textChars":14,"textLines":1,"bbox":[58,682,220,22]}
+{"kind":"textbox","id":"sh/je9cvixc","slide":9,"text":"9 / 17","textPreview":"9 / 17","textChars":6,"textLines":1,"bbox":[1160,682,64,22]}
+{"kind":"image","id":"im/3ylc7u54","slide":9,"name":"","alt":"image.png","bbox":[70,150,530,235]}
+{"kind":"image","id":"im/adsji5sn","slide":9,"name":"","alt":"image-1.png","bbox":[680,150,450,235]}
+{"kind":"notes","id":"nt/15922r","slide":9,"text":""}
+{"kind":"slide","id":"sl/cmbr5d","slide":10,"title":"10","textShapes":12}
+{"kind":"shape","id":"sh/9w3m94fu","slide":10,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/25kb6xkf","slide":10,"text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/rqd4vmtw","slide":10,"text":"Qt와 서버 연결","textPreview":"Qt와 서버 연결","textChars":9,"textLines":1,"bbox":[124,26,900,54]}
+{"kind":"textbox","id":"sh/kzupwb2h","slide":10,"text":"db_Connector가 BaseUrl 기준으로 JSON 요청을 보냅니다","textPreview":"db_Connector가 BaseUrl 기준으로 JSON 요청을 보냅니다","textChars":40,"textLines":1,"bbox":[132,80,900,28]}
+{"kind":"shape","id":"sh/9knih4by","slide":10,"bbox":[58,114,1164,1]}
+{"kind":"shape","id":"sh/2t83itgf","slide":10,"bbox":[80,160,540,330]}
+{"kind":"textbox","id":"sh/re1w7mp0","slide":10,"text":"QNetworkRequest request(\n  QUrl(BaseUrl + \"/member/exists\"));\nrequest.setHeader(\n  QNetworkRequest::ContentTypeHeader,\n  \"application/json\");\n\nQJsonObject json;\njson[\"member_id\"] = MemberID;\n\nmanager.post(request,\n  QJsonDocument(json).toJson());","textPreview":"QNetworkRequest request( |   QUrl(BaseUrl + \"/member/exists\")); | request.setHeader( |   QNetworkRequest::ContentTypeHeader, |   \"applica...","textChars":246,"textLines":11,"bbox":[98,176,504,298]}
+{"kind":"shape","id":"sh/gvy90je9","slide":10,"bbox":[700,170,410,110]}
+{"kind":"textbox","id":"sh/9gr2p8nq","slide":10,"text":"요청","textPreview":"요청","textChars":2,"textLines":1,"bbox":[716,184,378,30]}
+{"kind":"textbox","id":"sh/dg7adsji","slide":10,"text":"회원 ID, 비밀번호, 운동 결과, 날짜 범위를 JSON으로 구성합니다.","textPreview":"회원 ID, 비밀번호, 운동 결과, 날짜 범위를 JSON으로 구성합니다.","textChars":40,"textLines":1,"bbox":[716,222,378,46]}
+{"kind":"shape","id":"sh/ovahoza1","slide":10,"bbox":[700,320,410,110]}
+{"kind":"textbox","id":"sh/vahoza1g","slide":10,"text":"응답","textPreview":"응답","textChars":2,"textLines":1,"bbox":[716,334,378,30]}
+{"kind":"textbox","id":"sh/6tovahoz","slide":10,"text":"success, exists, match, records 값을 읽어 다음 동작을 결정합니다.","textPreview":"success, exists, match, records 값을 읽어 다음 동작을 결정합니다.","textChars":51,"textLines":1,"bbox":[716,372,378,46]}
+{"kind":"shape","id":"sh/d8v6psfi","slide":10,"bbox":[700,470,410,110]}
+{"kind":"textbox","id":"sh/onyd0z61","slide":10,"text":"표시","textPreview":"표시","textChars":2,"textLines":1,"bbox":[716,484,378,30]}
+{"kind":"textbox","id":"sh/z25kb6xk","slide":10,"text":"조회 결과는 records 배열을 순회해 QTableWidget에 표시합니다.","textPreview":"조회 결과는 records 배열을 순회해 QTableWidget에 표시합니다.","textChars":43,"textLines":1,"bbox":[716,522,378,46]}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":10,"text":"RunningMachine","textPreview":"RunningMachine","textChars":14,"textLines":1,"bbox":[58,682,220,22]}
+{"kind":"textbox","id":"sh/d4vmtwra","slide":10,"text":"10 / 17","textPreview":"10 / 17","textChars":7,"textLines":1,"bbox":[1160,682,64,22]}
+{"kind":"notes","id":"nt/cmbr5d","slide":10,"text":""}
+{"kind":"slide","id":"sl/0dp7m2","slide":11,"title":"11","textShapes":18}
+{"kind":"shape","id":"sh/cfa9w3m9","slide":11,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/judg7ads","slide":11,"text":"11","textPreview":"11","textChars":2,"textLines":1,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/u9knih4b","slide":11,"text":"저장과 조회 흐름","textPreview":"저장과 조회 흐름","textChars":9,"textLines":1,"bbox":[124,26,900,54]}
+{"kind":"textbox","id":"sh/1orytsvu","slide":11,"text":"운동 결과가 서버를 거쳐 DB에 저장되고 다시 화면으로 돌아옵니다","textPreview":"운동 결과가 서버를 거쳐 DB에 저장되고 다시 화면으로 돌아옵니다","textChars":36,"textLines":1,"bbox":[132,80,900,28]}
+{"kind":"shape","id":"sh/c7u54zid","slide":11,"bbox":[58,114,1164,1]}
+{"kind":"shape","id":"sh/jm1cfa9w","slide":11,"bbox":[280,255,70,1]}
+{"kind":"shape","id":"sh/u18jqh0f","slide":11,"bbox":[90,185,190,140]}
+{"kind":"shape","id":"sh/5gbq1ory","slide":11,"bbox":[106,205,36,36]}
+{"kind":"textbox","id":"sh/cvixczed","slide":11,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[106,205,36,36]}
+{"kind":"textbox","id":"sh/m1cfa9w3","slide":11,"text":"운동 종료","textPreview":"운동 종료","textChars":5,"textLines":1,"bbox":[152,205,110,30]}
+{"kind":"textbox","id":"sh/bm58z25k","slide":11,"text":"총 시간, 평균 속도, 거리, 칼로리 계산","textPreview":"총 시간, 평균 속도, 거리, 칼로리 계산","textChars":23,"textLines":1,"bbox":[108,255,154,48]}
+{"kind":"shape","id":"sh/47y1kre1","slide":11,"bbox":[540,255,70,1]}
+{"kind":"shape","id":"sh/tsvu9kni","slide":11,"bbox":[350,185,190,140]}
+{"kind":"shape","id":"sh/mp0bi9s3","slide":11,"bbox":[366,205,36,36]}
+{"kind":"textbox","id":"sh/bat47y1k","slide":11,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[366,205,36,36]}
+{"kind":"textbox","id":"sh/4vmtwra5","slide":11,"text":"기록 저장 요청","textPreview":"기록 저장 요청","textChars":8,"textLines":1,"bbox":[412,205,110,30]}
+{"kind":"textbox","id":"sh/tgfmlkjm","slide":11,"text":"/record/save JSON POST","textPreview":"/record/save JSON POST","textChars":22,"textLines":1,"bbox":[368,255,154,48]}
+{"kind":"shape","id":"sh/mhk3q5o7","slide":11,"bbox":[800,255,70,1]}
+{"kind":"shape","id":"sh/b2hwfyxo","slide":11,"bbox":[610,185,190,140]}
+{"kind":"shape","id":"sh/7u54zido","slide":11,"bbox":[626,205,36,36]}
+{"kind":"textbox","id":"sh/ed8bat47","slide":11,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[626,205,36,36]}
+{"kind":"textbox","id":"sh/l0rqd4vm","slide":11,"text":"MySQL 저장","textPreview":"MySQL 저장","textChars":8,"textLines":1,"bbox":[672,205,110,30]}
+{"kind":"textbox","id":"sh/wfyxobm5","slide":11,"text":"RunningRecord INSERT","textPreview":"RunningRecord INSERT","textChars":20,"textLines":1,"bbox":[628,255,154,48]}
+{"kind":"shape","id":"sh/36hcrmhk","slide":11,"bbox":[870,185,190,140]}
+{"kind":"shape","id":"sh/eloj2t83","slide":11,"bbox":[886,205,36,36]}
+{"kind":"textbox","id":"sh/lc7u54zi","slide":11,"text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[886,205,36,36]}
+{"kind":"textbox","id":"sh/wra5gbq1","slide":11,"text":"기록 조회","textPreview":"기록 조회","textChars":5,"textLines":1,"bbox":[932,205,110,30]}
+{"kind":"textbox","id":"sh/7adsji5s","slide":11,"text":"/record/inquiry 결과 표시","textPreview":"/record/inquiry 결과 표시","textChars":21,"textLines":1,"bbox":[888,255,154,48]}
+{"kind":"shape","id":"sh/epkzupwb","slide":11,"bbox":[350,405,580,180]}
+{"kind":"textbox","id":"sh/orytsvu9","slide":11,"text":"저장 요청 예시\n{\n  \"member_id\": \"abc123\",\n  \"run_time\": 120.0,\n  \"avg_speed\": 8.5,\n  \"distance\": 0.283,\n  \"calorie\": 15.2\n}","textPreview":"저장 요청 예시 | { |   \"member_id\": \"abc123\", |   \"run_time\": 120.0, |   \"avg_speed\": 8.5, |   \"distance\": 0.283, |   \"calorie\": 15.2 | }","textChars":117,"textLines":8,"bbox":[368,421,544,148]}
+{"kind":"textbox","id":"sh/hcrmhk3q","slide":11,"text":"RunningMachine","textPreview":"RunningMachine","textChars":14,"textLines":1,"bbox":[58,682,220,22]}
+{"kind":"textbox","id":"sh/al87ed8b","slide":11,"text":"11 / 17","textPreview":"11 / 17","textChars":7,"textLines":1,"bbox":[1160,682,64,22]}
+{"kind":"notes","id":"nt/0dp7m2","slide":11,"text":""}
+{"kind":"slide","id":"sl/kcv7sm","slide":12,"title":"12","textShapes":20}
+{"kind":"shape","id":"sh/pg3ex0nu","slide":12,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/epkzupwb","slide":12,"text":"12","textPreview":"12","textChars":2,"textLines":1,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/7adsji5s","slide":12,"text":"실행 순서","textPreview":"실행 순서","textChars":5,"textLines":1,"bbox":[124,26,900,54]}
+{"kind":"textbox","id":"sh/w7mp0bi9","slide":12,"text":"전체 기능을 확인할 때 준비해야 하는 순서입니다","textPreview":"전체 기능을 확인할 때 준비해야 하는 순서입니다","textChars":26,"textLines":1,"bbox":[132,80,900,28]}
+{"kind":"shape","id":"sh/psfil0rq","slide":12,"bbox":[58,114,1164,1]}
+{"kind":"shape","id":"sh/e1w7mp0b","slide":12,"bbox":[95,145,1080,64]}
+{"kind":"shape","id":"sh/7mp0bi9s","slide":12,"bbox":[120,159,38,38]}
+{"kind":"textbox","id":"sh/wfyxobm5","slide":12,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[120,159,38,38]}
+{"kind":"textbox","id":"sh/l0rqd4vm","slide":12,"text":"MySQL 실행","textPreview":"MySQL 실행","textChars":8,"textLines":1,"bbox":[180,155,260,28]}
+{"kind":"textbox","id":"sh/hk3q5o7q","slide":12,"text":"RunRecordDB와 테이블 준비","textPreview":"RunRecordDB와 테이블 준비","textChars":19,"textLines":1,"bbox":[470,155,650,34]}
+{"kind":"shape","id":"sh/oza1gvy9","slide":12,"bbox":[95,237,1080,64]}
+{"kind":"shape","id":"sh/zed8v6ps","slide":12,"bbox":[120,251,38,38]}
+{"kind":"textbox","id":"sh/6xkf6dcb","slide":12,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[120,251,38,38]}
+{"kind":"textbox","id":"sh/hwfyxobm","slide":12,"text":"Flask 서버 실행","textPreview":"Flask 서버 실행","textChars":11,"textLines":1,"bbox":[180,247,260,28]}
+{"kind":"textbox","id":"sh/obm58z25","slide":12,"text":"python app.py","textPreview":"python app.py","textChars":13,"textLines":1,"bbox":[470,247,650,34]}
+{"kind":"shape","id":"sh/zqtcj6to","slide":12,"bbox":[95,329,1080,64]}
+{"kind":"shape","id":"sh/65wjudg7","slide":12,"bbox":[120,343,38,38]}
+{"kind":"textbox","id":"sh/h0fepkzu","slide":12,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[120,343,38,38]}
+{"kind":"textbox","id":"sh/sfil0rqd","slide":12,"text":"Cloudflare 터널 실행","textPreview":"Cloudflare 터널 실행","textChars":16,"textLines":1,"bbox":[180,339,260,28]}
+{"kind":"textbox","id":"sh/onyd0z61","slide":12,"text":"cloudflared tunnel --url http://localhost:8000 --protocol http2","textPreview":"cloudflared tunnel --url http://localhost:8000 --protocol http2","textChars":63,"textLines":1,"bbox":[470,339,650,34]}
+{"kind":"shape","id":"sh/d8v6psfi","slide":12,"bbox":[95,421,1080,64]}
+{"kind":"shape","id":"sh/6hcrmhk3","slide":12,"bbox":[120,435,38,38]}
+{"kind":"textbox","id":"sh/z25kb6xk","slide":12,"text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[120,435,38,38]}
+{"kind":"textbox","id":"sh/ovahoza1","slide":12,"text":"BaseUrl 갱신","textPreview":"BaseUrl 갱신","textChars":10,"textLines":1,"bbox":[180,431,260,28]}
+{"kind":"textbox","id":"sh/dg7adsji","slide":12,"text":"발급된 trycloudflare.com 주소 반영","textPreview":"발급된 trycloudflare.com 주소 반영","textChars":27,"textLines":1,"bbox":[470,431,650,34]}
+{"kind":"shape","id":"sh/6tovahoz","slide":12,"bbox":[95,513,1080,64]}
+{"kind":"shape","id":"sh/vahoza1g","slide":12,"bbox":[120,527,38,38]}
+{"kind":"textbox","id":"sh/o7qpg3ex","slide":12,"text":"5","textPreview":"5","textChars":1,"textLines":1,"bbox":[120,527,38,38]}
+{"kind":"textbox","id":"sh/dsji5sne","slide":12,"text":"Qt 클라이언트 실행","textPreview":"Qt 클라이언트 실행","textChars":11,"textLines":1,"bbox":[180,523,260,28]}
+{"kind":"textbox","id":"sh/3q5o7qpg","slide":12,"text":"로그인, 운동, 저장, 조회 확인","textPreview":"로그인, 운동, 저장, 조회 확인","textChars":18,"textLines":1,"bbox":[470,523,650,34]}
+{"kind":"textbox","id":"sh/e9cvixcz","slide":12,"text":"RunningMachine","textPreview":"RunningMachine","textChars":14,"textLines":1,"bbox":[58,682,220,22]}
+{"kind":"textbox","id":"sh/lwval87e","slide":12,"text":"12 / 17","textPreview":"12 / 17","textChars":7,"textLines":1,"bbox":[1160,682,64,22]}
+{"kind":"notes","id":"nt/kcv7sm","slide":12,"text":""}
+{"kind":"slide","id":"sl/ypnfwq","slide":13,"title":"13","textShapes":17}
+{"kind":"shape","id":"sh/psfil0rq","slide":13,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/e1w7mp0b","slide":13,"text":"13","textPreview":"13","textChars":2,"textLines":1,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/7mp0bi9s","slide":13,"text":"확인한 기능","textPreview":"확인한 기능","textChars":6,"textLines":1,"bbox":[124,26,900,54]}
+{"kind":"textbox","id":"sh/wval87ed","slide":13,"text":"기능별로 연결된 흐름을 확인했습니다","textPreview":"기능별로 연결된 흐름을 확인했습니다","textChars":19,"textLines":1,"bbox":[132,80,900,28]}
+{"kind":"shape","id":"sh/pg3ex0nu","slide":13,"bbox":[58,114,1164,1]}
+{"kind":"shape","id":"sh/epkzupwb","slide":13,"bbox":[90,150,480,95]}
+{"kind":"textbox","id":"sh/7adsji5s","slide":13,"text":"회원 확인","textPreview":"회원 확인","textChars":5,"textLines":1,"bbox":[106,164,448,30]}
+{"kind":"textbox","id":"sh/wra5gbq1","slide":13,"text":"존재하는 ID와 없는 ID 구분","textPreview":"존재하는 ID와 없는 ID 구분","textChars":17,"textLines":1,"bbox":[106,202,448,31]}
+{"kind":"shape","id":"sh/lc7u54zi","slide":13,"bbox":[660,150,480,95]}
+{"kind":"textbox","id":"sh/9w3m94fu","slide":13,"text":"비밀번호 확인","textPreview":"비밀번호 확인","textChars":7,"textLines":1,"bbox":[676,164,448,30]}
+{"kind":"textbox","id":"sh/kb6xkf6d","slide":13,"text":"기존 회원 비밀번호 일치 여부 확인","textPreview":"기존 회원 비밀번호 일치 여부 확인","textChars":19,"textLines":1,"bbox":[676,202,448,31]}
+{"kind":"shape","id":"sh/rqd4vmtw","slide":13,"bbox":[90,285,480,95]}
+{"kind":"textbox","id":"sh/25kb6xkf","slide":13,"text":"운동 실행","textPreview":"운동 실행","textChars":5,"textLines":1,"bbox":[106,299,448,30]}
+{"kind":"textbox","id":"sh/9knih4by","slide":13,"text":"시간·거리·칼로리 실시간 갱신","textPreview":"시간·거리·칼로리 실시간 갱신","textChars":16,"textLines":1,"bbox":[106,337,448,31]}
+{"kind":"shape","id":"sh/kzupwb2h","slide":13,"bbox":[660,285,480,95]}
+{"kind":"textbox","id":"sh/re1w7mp0","slide":13,"text":"기록 저장","textPreview":"기록 저장","textChars":5,"textLines":1,"bbox":[676,299,448,30]}
+{"kind":"textbox","id":"sh/2t83itgf","slide":13,"text":"/record/save 후 DB 저장","textPreview":"/record/save 후 DB 저장","textChars":20,"textLines":1,"bbox":[676,337,448,31]}
+{"kind":"shape","id":"sh/9gr2p8nq","slide":13,"bbox":[90,420,480,95]}
+{"kind":"textbox","id":"sh/gvy90je9","slide":13,"text":"기록 조회","textPreview":"기록 조회","textChars":5,"textLines":1,"bbox":[106,434,448,30]}
+{"kind":"textbox","id":"sh/wra5gbq1","slide":13,"text":"날짜 범위 조회와 테이블 표시","textPreview":"날짜 범위 조회와 테이블 표시","textChars":16,"textLines":1,"bbox":[106,472,448,31]}
+{"kind":"shape","id":"sh/lc7u54zi","slide":13,"bbox":[660,420,480,95]}
+{"kind":"textbox","id":"sh/eloj2t83","slide":13,"text":"터널 연결","textPreview":"터널 연결","textChars":5,"textLines":1,"bbox":[676,434,448,30]}
+{"kind":"textbox","id":"sh/36hcrmhk","slide":13,"text":"trycloudflare.com 주소로 API 접근","textPreview":"trycloudflare.com 주소로 API 접근","textChars":28,"textLines":1,"bbox":[676,472,448,31]}
+{"kind":"textbox","id":"sh/wfyxobm5","slide":13,"text":"RunningMachine","textPreview":"RunningMachine","textChars":14,"textLines":1,"bbox":[58,682,220,22]}
+{"kind":"textbox","id":"sh/l0rqd4vm","slide":13,"text":"13 / 17","textPreview":"13 / 17","textChars":7,"textLines":1,"bbox":[1160,682,64,22]}
+{"kind":"notes","id":"nt/ypnfwq","slide":13,"text":""}
+{"kind":"slide","id":"sl/5lwid9","slide":14,"title":"14","textShapes":17}
+{"kind":"shape","id":"sh/ovahoza1","slide":14,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/vahoza1g","slide":14,"text":"14","textPreview":"14","textChars":2,"textLines":1,"bbox":[58,34,56,34]}
+{"kind":"textbox","id":"sh/6tovahoz","slide":14,"text":"현재 한계와 수정 방향","textPreview":"현재 한계와 수정 방향","textChars":12,"textLines":1,"bbox":[124,26,900,54]}
+{"kind":"textbox","id":"sh/d8v6psfi","slide":14,"text":"현재 구조에서 이어서 정리할 부분입니다","textPreview":"현재 구조에서 이어서 정리할 부분입니다","textChars":21,"textLines":1,"bbox":[132,80,900,28]}
+{"kind":"shape","id":"sh/onyd0z61","slide":14,"bbox":[58,114,1164,1]}
+{"kind":"shape","id":"sh/z25kb6xk","slide":14,"bbox":[90,155,1100,390]}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":14,"text":"현재 상태","textPreview":"현재 상태","textChars":5,"textLines":1,"bbox":[130,180,300,32]}
+{"kind":"textbox","id":"sh/d4vmtwra","slide":14,"text":"수정 방향","textPreview":"수정 방향","textChars":5,"textLines":1,"bbox":[610,180,360,32]}
+{"kind":"shape","id":"sh/oj2t83it","slide":14,"bbox":[115,225,1050,1]}
+{"kind":"textbox","id":"sh/2x4nap4r","slide":14,"text":"Quick Tunnel 주소","textPreview":"Quick Tunnel 주소","textChars":15,"textLines":1,"bbox":[130,248,320,30]}
+{"kind":"textbox","id":"sh/vixczed8","slide":14,"text":"고정 도메인 또는 정식 서버 배포로 변경","textPreview":"고정 도메인 또는 정식 서버 배포로 변경","textChars":22,"textLines":1,"bbox":[610,248,500,30]}
+{"kind":"shape","id":"sh/k3q5o7qp","slide":14,"bbox":[115,290,1050,1]}
+{"kind":"textbox","id":"sh/donyd0z6","slide":14,"text":"BaseUrl 관리","textPreview":"BaseUrl 관리","textChars":10,"textLines":1,"bbox":[130,304,320,30]}
+{"kind":"textbox","id":"sh/6psfil0r","slide":14,"text":"코드에서 분리해 설정 파일 또는 환경 변수로 관리","textPreview":"코드에서 분리해 설정 파일 또는 환경 변수로 관리","textChars":27,"textLines":1,"bbox":[610,304,500,30]}
+{"kind":"shape","id":"sh/val87ed8","slide":14,"bbox":[115,346,1050,1]}
+{"kind":"textbox","id":"sh/kre1w7mp","slide":14,"text":"DB 접속 정보","textPreview":"DB 접속 정보","textChars":8,"textLines":1,"bbox":[130,360,320,30]}
+{"kind":"textbox","id":"sh/dcbulwva","slide":14,"text":"config.example.py와 .env 구조로 정리","textPreview":"config.example.py와 .env 구조로 정리","textChars":30,"textLines":1,"bbox":[610,360,500,30]}
+{"kind":"shape","id":"sh/2lszqtcj","slide":14,"bbox":[115,402,1050,1]}
+{"kind":"textbox","id":"sh/v6psfil0","slide":14,"text":"네트워크 요청","textPreview":"네트워크 요청","textChars":7,"textLines":1,"bbox":[130,416,320,30]}
+{"kind":"textbox","id":"sh/nuxc3ylc","slide":14,"text":"비동기 Signal/Slot 구조로 개선","textPreview":"비동기 Signal/Slot 구조로 개선","textChars":22,"textLines":1,"bbox":[610,416,500,30]}
+{"kind":"shape","id":"sh/y90je9cv","slide":14,"bbox":[115,458,1050,1]}
+{"kind":"textbox","id":"sh/5wjudg7a","slide":14,"text":"테스트","textPreview":"테스트","textChars":3,"textLines":1,"bbox":[130,472,320,30]}
+{"kind":"textbox","id":"sh/gbq1oryt","slide":14,"text":"계산 모듈 단위 테스트와 API mock 테스트 추가","textPreview":"계산 모듈 단위 테스트와 API mock 테스트 추가","textChars":29,"textLines":1,"bbox":[610,472,500,30]}
+{"kind":"textbox","id":"sh/n29gr2p8","slide":14,"text":"RunningMachine","textPreview":"RunningMachine","textChars":14,"textLines":1,"bbox":[58,682,220,22]}
+{"kind":"textbox","id":"sh/yhgn29gr","slide":14,"text":"14 / 17","textPreview":"14 / 17","textChars":7,"textLines":1,"bbox":[1160,682,64,22]}
+{"kind":"notes","id":"nt/5lwid9","slide":14,"text":""}
+{"kind":"slide","id":"sl/08r624","slide":15,"title":"정리","textShapes":13}
+{"kind":"textbox","id":"sh/onyd0z61","slide":15,"text":"정리","textPreview":"정리","textChars":2,"textLines":1,"bbox":[82,82,420,72]}
+{"kind":"textbox","id":"sh/z25kb6xk","slide":15,"text":"RunningMachine은 Qt/C++ 데스크톱 앱에서 출발해 서버와 DB를 연결한 운동 기록 프로그램입니다.","textPreview":"RunningMachine은 Qt/C++ 데스크톱 앱에서 출발해 서버와 DB를 연결한 운동 기록 프로그램입니다.","textChars":62,"textLines":1,"bbox":[86,178,870,44]}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":15,"text":"✓","textPreview":"✓","textChars":1,"textLines":1,"bbox":[105,270,40,34]}
+{"kind":"textbox","id":"sh/dg7adsji","slide":15,"text":"Qt 클라이언트는 화면, 입력, 실시간 운동 계산을 담당합니다.","textPreview":"Qt 클라이언트는 화면, 입력, 실시간 운동 계산을 담당합니다.","textChars":35,"textLines":1,"bbox":[160,270,880,34]}
+{"kind":"textbox","id":"sh/ovahoza1","slide":15,"text":"✓","textPreview":"✓","textChars":1,"textLines":1,"bbox":[105,326,40,34]}
+{"kind":"textbox","id":"sh/vahoza1g","slide":15,"text":"MySQL은 회원 정보와 운동 기록을 저장합니다.","textPreview":"MySQL은 회원 정보와 운동 기록을 저장합니다.","textChars":27,"textLines":1,"bbox":[160,326,880,34]}
+{"kind":"textbox","id":"sh/6tovahoz","slide":15,"text":"✓","textPreview":"✓","textChars":1,"textLines":1,"bbox":[105,382,40,34]}
+{"kind":"textbox","id":"sh/dsji5sne","slide":15,"text":"Flask API 서버는 Qt와 DB 사이에서 요청을 처리합니다.","textPreview":"Flask API 서버는 Qt와 DB 사이에서 요청을 처리합니다.","textChars":36,"textLines":1,"bbox":[160,382,880,34]}
+{"kind":"textbox","id":"sh/o7qpg3ex","slide":15,"text":"✓","textPreview":"✓","textChars":1,"textLines":1,"bbox":[105,438,40,34]}
+{"kind":"textbox","id":"sh/q5o7qpg3","slide":15,"text":"Cloudflare Quick Tunnel은 로컬 서버를 외부 HTTPS 주소와 연결합니다.","textPreview":"Cloudflare Quick Tunnel은 로컬 서버를 외부 HTTPS 주소와 연결합니다.","textChars":51,"textLines":1,"bbox":[160,438,880,34]}
+{"kind":"textbox","id":"sh/jqh0fepk","slide":15,"text":"✓","textPreview":"✓","textChars":1,"textLines":1,"bbox":[105,494,40,34]}
+{"kind":"textbox","id":"sh/8bat47y1","slide":15,"text":"db_Connector는 BaseUrl 기준으로 API를 호출하고 응답을 화면에 반영합니다.","textPreview":"db_Connector는 BaseUrl 기준으로 API를 호출하고 응답을 화면에 반영합니다.","textChars":51,"textLines":1,"bbox":[160,494,880,34]}
+{"kind":"textbox","id":"sh/1w7mp0bi","slide":15,"text":"15 / 15","textPreview":"15 / 15","textChars":7,"textLines":1,"bbox":[1160,682,64,22]}
+{"kind":"notes","id":"nt/08r624","slide":15,"text":""}
