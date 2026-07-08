@@ -14,7 +14,8 @@ RunningMachine은 Qt/C++로 만든 러닝머신 운동 기록 시뮬레이터입
 | 결과 화면 |  <code>![결과 화면](Screenshot/ResultScreen.png)</code> |
 | 기록 조회 화면 |  <code>![기록 조회 화면](Screenshot/FindScreen.png)</code> |
 ## 실행 영상
-https://github.com/user-attachments/assets/8e0f878c-2e08-403c-a733-b2bd2545a241  |
+
+https://github.com/user-attachments/assets/8e0f878c-2e08-403c-a733-b2bd2545a241
 
 ## 개요
 
