@@ -5,6 +5,15 @@ RunningMachine은 Qt/C++로 만든 러닝머신 운동 기록 시뮬레이터입
 처음에는 Qt 데스크톱 앱 내부에서 운동 상태를 계산하고 화면에 표시하는 기능이 중심이었습니다. 이후 운동 기록을 사용자별로 남기기 위해 MySQL을 추가했고, 다른 컴퓨터에서 실행한 앱도 같은 기록 저장소를 사용할 수 있도록 Flask API 서버와 Cloudflare Quick Tunnel을 연결했습니다.
 
 ---
+# 데모자료
+
+| 구분 | 화면 
+|---|---|
+| 로그인 화면 | <code>![로그인 화면](Screenshot/LoginScreen.png)</code> |
+| 러닝 중 화면 |  <code>![러닝 중 화면](Screenshot/RunningScreen.png)</code> |
+| 결과 화면 |  <code>![결과 화면](Screenshot/ResultScreen.png)</code> |
+| 기록 조회 화면 |  <code>![기록 조회 화면](Screenshot/FindScreen.png)</code> |
+| 실행 영상 |  <code>[실행 영상 보기](Screenshot/RunVideo.mp4)</code> |
 
 ## 개요
 
