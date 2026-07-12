@@ -9,10 +9,10 @@ RunningMachine은 Qt/C++로 만든 러닝머신 운동 기록 시뮬레이터입
 
 | 구분 | 화면 
 |---|---|
-| 로그인 화면 | <code>![로그인 화면](Screenshot/LoginScreen.png)</code> |
-| 러닝 중 화면 |  <code>![러닝 중 화면](Screenshot/RunningScreen.png)</code> |
-| 결과 화면 |  <code>![결과 화면](Screenshot/ResultScreen.png)</code> |
-| 기록 조회 화면 |  <code>![기록 조회 화면](Screenshot/FindScreen.png)</code> |
+| 로그인 화면 | <code>![로그인 화면](Folder/Screenshot/LoginScreen.png)</code> |
+| 러닝 중 화면 |  <code>![러닝 중 화면](Folder/Screenshot/RunningScreen.png)</code> |
+| 결과 화면 |  <code>![결과 화면](Folder/Screenshot/ResultScreen.png)</code> |
+| 기록 조회 화면 |  <code>![기록 조회 화면](Folder/Screenshot/FindScreen.png)</code> |
 ## 실행 영상
 
 https://github.com/user-attachments/assets/8e0f878c-2e08-403c-a733-b2bd2545a241
@@ -309,11 +309,11 @@ cloudflared tunnel --url http://localhost:8000 --protocol http2
 
 명령을 실행하면 trycloudflare.com 형태의 임시 주소가 발급됩니다.
 
-![Cloudflare Quick Tunnel 실행 예시](image.png)
+![Cloudflare Quick Tunnel 실행 예시](Folder/image.png)
 
 발급된 주소는 Qt 클라이언트의 BaseUrl에 넣었습니다.
 
-![Qt BaseUrl 설정 예시](image-1.png)
+![Qt BaseUrl 설정 예시](Folder/image-1.png)
 
 Quick Tunnel 주소는 임시 주소이기 때문에 터널을 다시 실행하면 주소가 바뀔 수 있습니다. 그래서 다시 실행할 때는 새 주소를 BaseUrl에도 반영해야 합니다.
 
