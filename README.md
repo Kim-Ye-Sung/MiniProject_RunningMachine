@@ -433,48 +433,6 @@ windeployqt MiniProject1.exe
 
 ---
 
-## 폴더 구조
-
-~~~text
-MiniProject_RunningMachine
-├─ MiniProject1
-│  ├─ main.cpp
-│  ├─ mainwindow.h / mainwindow.cpp / mainwindow.ui
-│  ├─ Calculator.h / Calculator.cpp
-│  ├─ timecalculator.*
-│  ├─ speedcalculator.*
-│  ├─ distancecalculator.*
-│  ├─ caloriecalculator.*
-│  ├─ db_connector.h / db_connector.cpp
-│  ├─ resources.qrc
-│  └─ images
-│     └─ Toko_Run.png
-├─ RunRecordServer
-│  ├─ app.py
-│  └─ config.py
-├─ QuerryFolder
-│  ├─ Create_User.sql
-│  └─ User_Script.sql
-├─ image.png
-├─ image-1.png
-└─ README5.md
-~~~
-
----
-
-## 현재 한계와 다음 수정 방향
-
-| 현재 상태 | 수정 방향 |
-|---|---|
-| Quick Tunnel 주소가 실행할 때마다 바뀔 수 있음 | 고정 도메인 또는 정식 서버 배포 방식으로 변경합니다. |
-| BaseUrl이 코드에 직접 들어가 있음 | 설정 파일이나 환경 변수로 분리합니다. |
-| config.py에 DB 접속 정보가 들어감 | config.example.py와 .env 구조로 정리합니다. |
-| Qt 네트워크 요청 흐름이 단순 동기 처리에 가까움 | 비동기 Signal/Slot 구조로 개선합니다. |
-| 자동화 테스트가 부족함 | 계산 모듈 단위 테스트와 API mock 테스트를 추가합니다. |
-| 서버 오류 응답이 화면별로 세분화되어 있지 않음 | API 오류 메시지와 클라이언트 표시 방식을 정리합니다. |
-
----
-
 ## 정리
 
 RunningMachine은 Qt/C++ 데스크톱 앱에서 출발해, 운동 기록을 저장하고 다시 조회할 수 있도록 서버와 데이터베이스를 연결한 프로젝트입니다.
